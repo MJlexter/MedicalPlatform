@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <title>确认预约</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <link rel="shortcut icon" href="/MedicalPlatform/UIDEMO/img/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="114x114" href="/MedicalPlatform/UIDEMO/img/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon" sizes="72x72" href="/MedicalPlatform/UIDEMO/img/apple-touch-icon-72x72.png" />
+
+    <link rel="apple-touch-icon" href="/MedicalPlatform/UIDEMO/img/apple-touch-icon-57x57.png" />
+    <link rel="stylesheet" href="/MedicalPlatform/UIDEMO/themes/mobile/css/jquery.mobile-1.4.5.css" />
+    <link href="/MedicalPlatform/UIDEMO/themes/mobile/css/main.css" rel="stylesheet" />
+
+    <script src="/MedicalPlatform/UIDEMO/js/jquery-2.0.3.min.js"></script>
+    <script src="/MedicalPlatform/UIDEMO/themes/mobile/js/jquery.mobile-1.4.5.js"></script>
+
+    <script>
+        $(function () {
+            initRegister();
+        });
+
+        //$(document).on("pageinit", "#pageone", function () {
+        //    $("p").on("swipeleft", function () {
+        //        $("span").css("display", "block");
+        //        $("p").css("display", "none");
+        //    });
+        //});
+
+        //$(document).on("pageinit", "#pageone", function () {
+        //    $("span").on("swiperight", function () {
+        //        $("span").css("display", "none");
+        //        $("p").css("display", "block");
+        //    });
+        //});
+
+        function initRegister() {
+            $("#smsLable").addClass("registerDefault");
+            $("#passwordLable").addClass("registerDefault");
+            $("#phoneLable").addClass("registerActive");
+
+            $("#inputContent div").each(function () {
+                $(this).css("border-style", "none");
+            });
+            
+            $("#inputContent input").each(function() {
+                $(this).hide();
+            });
+            $("#inputContent input").first().show();
+        }
+
+        function setLableClass(lable) {
+            $("#phoneLable").removeClass("registerActive");
+            $("#smsLable").removeClass("registerActive");
+            $("#passwordLable").removeClass("registerActive");
+            
+            $("#phoneLable").addClass("registerDefault");
+            $("#smsLable").addClass("registerDefault");
+            $("#passwordLable").addClass("registerDefault");
+            
+            $(lable).removeClass("registerDefault");
+            $(lable).addClass("registerActive");
+        }
+
+        function openTab(id,lable) {
+            $("#inputContent input").each(function () {
+                $(this).hide();
+            });
+            $("#" + id).show();
+            setLableClass(lable);
+        }
+
+    </script>
+</head>
+<body>
+    <div data-role="page" id="pageone" style="float: left;">
+        <div id="header" data-role="header" data-position="fixed" data-tap-toggle="false" data-theme="a">
+            <h1>
+                <div>会员注册</div>
+            </h1>
+            <img src="/MedicalPlatform/UIDEMO/themes/mobile/img/icons/index_comment.png">
+        </div>
+
+        <div data-role="content">
+            <!--            <p style="border: 1px solid black; margin: 5px;">向左滑动 - 不要超出边框！</p>
+            <span style="display: none;">的还是发放的</span>-->
+
+            <div style="float: left; width: 100%">
+                <div style="float: left; width: 50%;">
+                    <img style="width: 45px; height: 45px; float: right;" src="/MedicalPlatform/UIDEMO/img/apple-touch-icon-57x57.png" />
+                </div>
+                <div style="float: left; width: 50%; margin-top: 8px;">
+                    <div style="font-size: 1em;">港醫匯</div>
+                    <div style="font-size: 0.5em; color: #3C8AC9;">My HK Doctor</div>
+                </div>
+            </div>
+            <div style="border-bottom: 1px solid #08A3E9; margin-left: -20px; height: 1px; float: left; width: 130%; margin-top: 5px;"></div>
+
+            <div style="float: left; width: 100%; margin-top: 10px;">
+                <div style="width: 33%; float: left;">
+                    <div style="float: left; font-size: 0.7em;" id="phoneLable" onclick="openTab('phone',this);">
+                        1 输入手机
+                    </div>
+                </div>
+                <div style="width: 33%; float: left;">
+                    <div style="float: left; font-size: 0.7em;" id="smsLable" onclick="openTab('sms',this);">
+                        2 输入验证
+                    </div>
+                </div>
+                <div style="width: 33%; float: left;">
+                    <div style="float: left; font-size: 0.7em;" id="passwordLable" onclick="openTab('password',this);">
+                        3 设置密码
+                    </div>
+                </div>
+            </div>
+
+            <div style="float: left; width: 100%;" id="inputContent">
+                <input style="width: 80%; height: 40px;" placeholder="请输入你的手机号" id="phone"/>
+                <input style="width: 80%; height: 40px;" placeholder="请输入你的验证码" id="sms"/>
+                <input style="width: 80%; height: 40px;" type="password" placeholder="请输入你的密码" id="password"/>
+            </div>
+
+            <div style="float: left; width: 100%; margin-top: 10px;">
+                <button class=" " id="registerBtn" data-role="none" onclick="comfireOrder();">
+                    <span>注册</span>
+                </button>
+            </div>
+            
+            <div style="float: left; width: 100%; margin-top: 10px;">
+                <div style="float: left; margin-top: -5px;">
+                    <input data-role="none" type="checkbox" />
+                </div>
+                <div style="float: left; font-size: 0.8em; ">
+                    我已经阅读<a style="color: #08A3E9;text-decoration:underline; ">服务条款</a>中所有内容
+                </div>
+            </div>
+
+        </div>
+
+<!--        <div id="footer" data-role="footer" data-position="fixed" data-tap-toggle="false" data-theme="a">
+            <div data-role="navbar">
+                <ul>
+                    <li>
+                        <a href="#" data-icon="home">首页</a>
+                    </li>
+                    <li><a href="#" data-icon="heart">疫苗</a></li>
+                    <li><a href="#" data-icon="star">咨询</a></li>
+                    <li><a href="#" data-icon="user">会员</a></li>
+                </ul>
+            </div>
+        </div>-->
+    </div>
+</body>
+</html>

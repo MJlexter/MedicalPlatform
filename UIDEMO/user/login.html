@@ -18,45 +18,60 @@
     <script src="/MedicalPlatform/UIDEMO/js/jquery-2.0.3.min.js"></script>
     <script src="/MedicalPlatform/UIDEMO/themes/mobile/js/jquery.mobile-1.4.5.js"></script>
 
-    <script>
-        $(document).on("pageinit", "#pageone", function () {
-            $("p").on("swipeleft", function () {
-                $("span").css("display", "block");
-                $("p").css("display", "none");
-            });
+    <script type="text/javascript">
+        $(function () {
+            $("#inputContent div").css("border", "0");
+            $("#inputContent div").css("margin", "0");
+            $("#inputContent div").css("box-shadow", "none");
+
+            $("#inputContent div").first().css("border-bottom", "1px solid #C5E6F8");
+            $("#inputContent div").first().css("border-top", "1px solid #6AC5F1");
+            $("#inputContent div").first().css("border-left", "1px solid #6AC5F1");
+            $("#inputContent div").first().css("border-right", "1px solid #6AC5F1");
+
+            $("#inputContent div").last().css("border-left", "1px solid #6AC5F1");
+            $("#inputContent div").last().css("border-right", "1px solid #6AC5F1");
+            $("#inputContent div").last().css("border-bottom", "1px solid #6AC5F1");
+
+            $("#inputContent div").first().css("border-radius", "0.3125em 0.3125em 0 0");
+            $("#inputContent div").last().css("border-radius", "0 0 0.3125em 0.3125em");
+
+            $("#inputContent input").css("margin-left", "45px");
         });
     </script>
 </head>
 <body>
-<!--    <div data-role="page">
+    <div data-role="page" id="pageone" style="float: left;">
         <div id="header" data-role="header" data-position="fixed" data-tap-toggle="false" data-theme="a">
             <h1>
-                <div>确认预约</div>
+                <div>会员登陆</div>
             </h1>
             <img src="/MedicalPlatform/UIDEMO/themes/mobile/img/icons/index_comment.png">
-        </div>-->
+        </div>
 
-        <div id="content" data-role="content">
-
-            <div data-role="page" id="pageone" style="float:left;">
-                <div data-role="header">
-                    <h1>swipeleft 事件</h1>
+        <div data-role="content">
+            <div style="float: left; width: 100%">
+                <div style="float: left; width: 100%;">
+                    <span style="font-size: 1em; color: #6AC5F1; float: right; " >快速注册</span>
                 </div>
+            </div>
 
-                <div data-role="content">
-                    <p style="border: 1px solid black; margin: 5px;">向左滑动 - 不要超出边框！</p>
-                    <span style="display:none;" >的还是发放的</span>
-                </div>
+            <div style="float: left; width: 100%;margin-top: 10px;" id="inputContent">
+                <span style="color: #aaa; font-size: 0.8em; display: block; margin-top: 15px; margin-left: 5px; position: absolute; width: 40px;">手机号</span>
+                <input style="width: 80%; height: 40px;" id="phone" />
+                <span style="color: #aaa; font-size: 0.8em; display: block; margin-top: 13px; margin-left: 5px; position: absolute; width: 40px;">密码</span>
+                <input style="width: 80%; height: 40px;" type="password" id="password" />
+            </div>
 
-                <div data-role="footer">
-                    <h1>页脚文本</h1>
-                </div>
+            <div style="float: left; width: 100%; margin-top: 10px;">
+                <button class=" " id="registerBtn" data-role="none" onclick="comfireOrder();">
+                    <span>登陆</span>
+                </button>
             </div>
 
         </div>
 
-
-<!--        <div id="footer" data-role="footer" data-position="fixed" data-tap-toggle="false" data-theme="a">
+        <!--        <div id="footer" data-role="footer" data-position="fixed" data-tap-toggle="false" data-theme="a">
             <div data-role="navbar">
                 <ul>
                     <li>
@@ -67,8 +82,7 @@
                     <li><a href="#" data-icon="user">会员</a></li>
                 </ul>
             </div>
-        </div>
-
-    </div>-->
+        </div>-->
+    </div>
 </body>
 </html>

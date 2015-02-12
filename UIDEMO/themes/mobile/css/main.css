@@ -914,8 +914,8 @@ label {
     padding: 3px;
     background-color: white;
     border: 0;
-    margin-top:14px;
-    margin-left:79%;
+    margin-top: 14px;
+    margin-left: 79%;
 }
 
     #cancelSearch span {
@@ -924,3 +924,41 @@ label {
         font-weight: normal;
     }
 /*search            end*/
+
+
+/*register begin*/
+.registerActive {
+    color: #13B0EB;
+    background-image: url("/MedicalPlatform/UIDEMO/themes/mobile/img/icons/vaccine_right_arrows.png");
+    background-repeat: no-repeat;
+    background-position: 90% 50%;
+    background-size: 11px 11px;
+    width: 100%;
+}
+
+.registerDefault {
+    /*color: #3C8AC9;*/
+    background-image: url("/MedicalPlatform/UIDEMO/themes/mobile/img/icons/right_arrows_gray.png");
+    background-repeat: no-repeat;
+    background-position: 90% 50%;
+    background-size: 11px 11px;
+    width: 100%;
+}
+
+
+#registerBtn {
+    border-radius: 5px;
+    height: 40px;
+    width: 100%;
+    padding: 3px;
+    background-color: #08A3E9;
+    border: 0;
+}
+
+    #registerBtn span {
+        color: white;
+        font-size: 1.4em;
+        font-weight: normal;
+    }
+
+/*register end*/
