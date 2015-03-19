@@ -1,0 +1,81 @@
+
+
+
+<div id="popuptips" data-role="popup" data-overlay-theme="a" class="ui-content">
+    <p></p>
+</div>
+<div id="popuploading" data-dismissible="false"  data-role="popup" data-overlay-theme="a" class="ui-content">
+    <img src="{{$rootpath}}/img/loading.gif" />
+    <p></p>
+</div>
+
+<script>
+    function PopupTips(tips) {
+        $("#popuptips p").text(tips);
+
+        $("#popuptips").popup("open");
+    }
+    function PopupLoading(tips) {
+        $("#popuploading p").text(tips);
+        $("#popuploading").popup("open");
+    }
+    function CloseLoading() {
+        $("#popuploading").popup("close");
+    }
+</script>
+
+    </div><!-- /page -->
+
+
+<script type="text/javascript" src="{{$rootpath}}/js/ajaxfileupload.js"></script>
+<script>
+    $("a").attr("data-ajax", false);
+    $(document).ready(function () {
+
+        $(".upload_img").click(function () {
+
+            var id = $(this).attr("id");
+            var did = id.substring(0,id.length-2);
+
+            $("#"+did).click();
+
+        });
+
+    });
+
+    function upload(key, module) {
+        PopupLoading("");
+        $.ajaxFileUpload
+		(
+			{
+			    "url": '{{$rootpath}}/fileupload.php?module=' + module + '&field=' + key,
+			    "secureuri": false,
+			    "fileElementId": key,
+			    "dataType": 'text',
+			    "success": function (data, status) {
+			        //alert(data);
+			        CloseLoading();
+			        if (data.substring(0, 7) == "success") {
+			            str = data.substring(7, data.length);
+			            $("#" + key + "_v").val(str.split('|~~|')[1]);
+			            $("#" + key + "_d").attr("src", "{{$uploadpath}}/" + module + "/" + str.split('|~~|')[1]).show();
+			            try{
+			                if (typeof (eval("uploadSuccessCallBack")) == "function") {
+			                    uploadSuccessCallBack(key, module, str.split('|~~|')[1]);
+			                }
+			            }catch(e){}
+			        } else {
+			            alert("{{$SysLang.model.uploaderror}}");
+			        }
+
+			    },
+			    "error": function (data, status, e) {
+			        CloseLoading();
+			        alert("{{$SysLang.model.uploaderror}}");
+			    }
+			}
+		);
+    }
+</script>
+</body>
+</html>

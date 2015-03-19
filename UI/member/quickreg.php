@@ -14,20 +14,24 @@
   $name=$_REQUEST["name"];
   $password=$_REQUEST["password"];
 
-  $memberlist=$memberMgr->getMemberByEmailMobile($email,$mobile);
+  $memberlist=$memberMgr->getMemberByEmailMobile("no-email",$mobile);
   
   if(count($memberlist)>0){
-	echo "DUPLIC";
+	echo "HASREG";
   }else{
 	
-	$retreg=$memberMgr->addMember($email,$mobile,$password,$name);
+	$retreg=$memberMgr->addMember($email,$mobile,$password,'');
 	if($retreg==true){
-		$memberlist=$memberMgr->getMemberByEmailMobile($email,$mobile);
+		$memberlist=$memberMgr->getMemberByEmailMobile("no-email",$mobile);
 		if(count($memberlist)==1){
 		$member=$memberlist[0];
 		$_SESSION[SESSIONNAME]["Member"]=$member;
 		echo "SUCCESS";
+	  }else{
+		echo "MOREMEMBER".count($memberlist);
 	  }
+	}else{
+		echo "REGERROR";
 	}
   }
 

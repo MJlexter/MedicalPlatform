@@ -35,7 +35,7 @@
 	$smarty->assign("doctor",$doctor);
 	$smarty->assign("office_count",count($officeList));
 	$smarty->assign("office_list",$officeList);
-	$smarty->display(ROOT.'/templates/mobile/vaccine/bookinginfo.html');
+	$smarty->display(ROOT.'/templates/order/vaccinebookinginfo.html');
   }
 
 ?>

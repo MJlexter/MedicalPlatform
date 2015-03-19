@@ -10,9 +10,15 @@
   require ROOT.'/classes/datamgr/vaccine.cls.php';
 
   $vaccine=$vaccineMgr->getVaccine($_REQUEST["id"]);
-
+  $vaccine["summary"]=encodeLongText($vaccine["summary"]);
+  $vaccine["effect"]=encodeLongText($vaccine["effect"]);
+  $vaccine["used_group"]=encodeLongText($vaccine["used_group"]);
+  $vaccine["caution"]=encodeLongText($vaccine["caution"]);
+  $vaccine["bad_effect"]=encodeLongText($vaccine["bad_effect"]);
+  $vaccine["bad_effect_resolve"]=encodeLongText($vaccine["bad_effect_resolve"]);
+  //echo  $vaccine["summary"];
   $smarty->assign("info",$vaccine);
 
-  $smarty->display(ROOT.'/templates/mobile/vaccine/detail.html');
+  $smarty->display(ROOT.'/templates/vaccine/detail.html');
 
 ?>

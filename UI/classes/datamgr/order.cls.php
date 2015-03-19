@@ -101,12 +101,24 @@ where o.office_id=$office_id and o.doctor_id=$doctor_id and order_date='$order_d
 		$office_id=mysql_real_escape_string($office_id);
 		$price=mysql_real_escape_string($price);
 		$snapshot=mysql_real_escape_string($snapshot);
+		
+		
 
 		$this->dbmgr->begin_trans();
 
+		while(true){
+			$guid=getSimpleGuid();
+			$sql="select 1 from dr_tb_member_vaccine_order where guid='$guid' and h_status='P' ";
+			$query = $this->dbmgr->query($sql);
+			$result = $this->dbmgr->fetch_array_all($query);
+			if(count($result)==0){
+				break;
+			}
+		}
+
 
 		$password=md5($password);
-		$guid=guid();
+		//$guid=guid();
 
 		$sql="select ifnull(max(id),0)+1 from dr_tb_member_vaccine_order";
 		$query = $this->dbmgr->query($sql);
@@ -122,11 +134,63 @@ VALUES
  ";
 		$query = $this->dbmgr->query($sql);
 
+		$this->updateDoctorBookingCount($doctor_id);
+		$this->updateVaccineBookingCount($vaccine_id);
+
 		
 		$this->dbmgr->commit_trans();
+		$arr["id"]=$id;
+		$arr["guid"]=$guid;
+		return $arr;
 
-		return $id;
+	}
 
+	public function updateDoctorBookingCount($doctor_id){
+		
+		
+		$sql="select 1 from dr_tb_doctor_value
+where doctor_id=$doctor_id;
+";
+		$query = $this->dbmgr->query($sql);
+		$result = $this->dbmgr->fetch_array_all($query); 
+		if(count($result)>0){
+			$sql="update dr_tb_doctor_value set booking_count=ifnull(booking_count,233)+1 where doctor_id=$doctor_id";
+
+		}else{
+			$sql="select ifnull(max(id),0)+1 from dr_tb_doctor_value";
+			$query = $this->dbmgr->query($sql);
+			$result = $this->dbmgr->fetch_array($query); 
+			$id=$result[0];
+			
+			$sql="insert into dr_tb_doctor_value (id,doctor_id,booking_count) values ($id,$doctor_id,234)";
+			
+		}
+		
+		$query = $this->dbmgr->query($sql);
+	}
+
+	
+	public function updateVaccineBookingCount($vaccine_id){
+		
+		
+		$sql="select 1 from dr_tb_vaccine_value
+where vaccine_id=$vaccine_id;
+";
+		$query = $this->dbmgr->query($sql);
+		$result = $this->dbmgr->fetch_array_all($query); 
+		if(count($result)>0){
+			$sql="update dr_tb_vaccine_value set booking_count=ifnull(booking_count,233)+1 where vaccine_id=$vaccine_id";
+
+		}else{
+			$sql="select ifnull(max(id),0)+1 from dr_tb_vaccine_value";
+			$query = $this->dbmgr->query($sql);
+			$result = $this->dbmgr->fetch_array($query); 
+			$id=$result[0];
+			
+			$sql="insert into dr_tb_vaccine_value (id,vaccine_id,booking_count) values ($id,$vaccine_id,234)";
+		}
+		
+		$query = $this->dbmgr->query($sql);
 	}
 
 	public function getActiveVaccineAppointmentList($member_id){
@@ -183,6 +247,27 @@ inner join dr_tb_time t on main.order_time=t.id
 where main.member_id=$member_id and main.id=$id";
 		$query = $this->dbmgr->query($sql);
 		$result = $this->dbmgr->fetch_array($query); 
+
+		return $result;
+	}
+
+	public function getVaccineAppointmentForCheck($member_id,$doctor_id,$vaccine_id){
+	
+		Global $SysLangCode;
+		$sql="select a.order_no,a.price, o.name office_name,a.guid,a.order_date,t.name order_time,a.name clientname,a.mobile clientmobile 
+		from dr_tb_member_vaccine_order a
+inner join dr_tb_office_lang o on a.office_id=o.oid and o.lang='$SysLangCode'
+inner join dr_tb_time t on a.order_time=t.id
+where a.member_id=$member_id
+and a.doctor_id=$doctor_id
+and a.vaccine_id=$vaccine_id
+and a.status='P'
+order by created_time desc";
+
+		$query = $this->dbmgr->query($sql);
+		$result = $this->dbmgr->fetch_array($query); 
+
+
 
 		return $result;
 	}

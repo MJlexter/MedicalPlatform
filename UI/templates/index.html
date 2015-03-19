@@ -1,0 +1,115 @@
+{{include  file="$smarty_root/header.html" }}
+{{include  file="$smarty_root/bar.html" }}
+<div role="main" class="ui-content" style="padding:0;">
+    <script src="{{$rootpath}}/themes/js/jquery.slides.js"></script>
+
+    <style>
+        .slidesjs-navigation {
+            display: none;
+        }
+
+        .slidesjs-pagination-item {
+            display: none;
+        }
+    </style>
+    <div class="row">
+        <div id="home-slides" class="col-xs-12">
+            {{foreach from=$topbanner item=rs}}
+            <a {{if $rs.link!="" }}href="{{$rs.link}}" {{/if}}>
+            <img class="img-responsive" src="{{$uploadpath}}/banner/{{$rs.pic}}">
+            </a>
+            {{/foreach}}
+        </div>
+    </div>
+    <script>
+
+        $(document).ready(function () {
+            $("#home-slides").slidesjs();
+        });
+
+    </script>
+    <div class="row ">
+        <div class="col-xs-12">
+            <div class="col-xs-4">
+                <a href="{{$rootpath}}/vaccine">
+                    <div><img class="img-responsive" src="{{$rootpath}}/themes/img/icons/index_vaccine.png"></div>
+                    <div class="text-center">找疫苗</div>
+                </a>
+            </div>
+            <div class="col-xs-4">
+                <a href="{{$rootpath}}/doctor">
+                    <div><img class="img-responsive" src="{{$rootpath}}/themes/img/icons/index_doctor.png"></div>
+                    <div class="text-center">看医生</div>
+                </a>
+            </div>
+            <div class="col-xs-4">
+                <a href="{{$rootpath}}/member">
+                    <div><img class="img-responsive" src="{{$rootpath}}/themes/img/icons/index_user.png"></div>
+                    <div class="text-center">服务</div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <br />
+
+    <div class="row" style="background: #DBDBDC; padding-left: 10px; padding-right: 10px; ">
+        <div class="col-xs-12">
+            <div class="col-xs-6"><a href="{{$rootpath}}/vaccine/"><h5>找疫苗</h5></a></div>
+            <div class="col-xs-6 text-right"><a href="{{$rootpath}}/vaccine/"><h5>更多  ></h5></a></div>
+        </div>
+    </div>
+
+    <br />
+
+    <div class="row" style=" padding-left: 10px;  ">
+        <div class="col-xs-12">
+            <div class="col-xs-5">
+                <a {{if $promotedbanner.link!="" }}href="{{$promotedbanner.link}}" {{/if}}>
+                <img class="img-responsive" src="{{$uploadpath}}/banner/{{$promotedbanner.pic}}" />
+                </a>
+            </div>
+            <div class="col-xs-7" style="padding-left:10px;">
+                <div class="row" style="padding-bottom:5px;">
+                    <a href="{{$rootpath}}/vaccine/detail.php?id={{$promotedvaccine1.id}}">
+                        <div class="col-xs-12" style="padding-bottom:5px;">{{$promotedvaccine1.name}}</div>
+                        <div class="col-xs-12">
+                            <div class="col-xs-7">
+                                <div class="row xsmall" style="height:40px;"><span style="color: #8D8D8D">[{{$promotedvaccine1.effect}}]</span></div>
+                                <div class="row xsmall"><span style="color: #ED7945;">免费预约</span></div>
+                            </div>
+                            <div class="col-xs-5">
+                                <img class="img-responsive" src="{{$uploadpath}}/vaccine/{{$promotedvaccine1.image}}" />
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="row" style="padding-bottom:5px;">
+                    <a href="{{$rootpath}}/vaccine/detail.php?id={{$promotedvaccine2.id}}">
+                        <div class="col-xs-12" style="padding-bottom:5px;">{{$promotedvaccine2.name}}</div>
+                        <div class="col-xs-12">
+                            <div class="col-xs-7">
+                                <div class="row xsmall" style="height:40px;"><span style="color: #8D8D8D">[{{$promotedvaccine2.effect}}]</span></div>
+                                <div class="row xsmall"><span style="color: #ED7945;font-size:12px;">免费预约</span></div>
+                            </div>
+                            <div class="col-xs-5">
+                                <img class="img-responsive" src="{{$uploadpath}}/vaccine/{{$promotedvaccine2.image}}" />
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr style="margin-bottom:0px;" />
+
+    <div class="col-xs-12">
+        <div class="col-xs-12">
+            <a href="{{$rootpath}}/doctor/query.php" data-role="button" style="color:snow; background-color:#42A4D3;">我要提问</a>
+        </div>
+    </div>
+    <br />
+</div>
+{{include  file="$smarty_root/navbar.html" }}
+    {{include  file="$smarty_root/footer.html" }}

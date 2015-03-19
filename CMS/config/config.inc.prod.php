@@ -3,10 +3,10 @@
 #[Root]
 $CONFIG['rootpath']		= '/CMS';  
 //$CONFIG['charset']		= 'utf-8'; 
-$CONFIG['Title']             = '医汇通';
-$CONFIG['URL']="http://www.helpfooter.com/CMS";
+$CONFIG['Title']             = '港医汇';
+$CONFIG['URL']="http://www.myhkdoc.com/CMS";
 $CONFIG['lang']="zh-cn";//en-us
-$CONFIG["frontendurl"]="http://www.helpfooter.com/Promotion";
+$CONFIG["frontendurl"]="http://www.myhkdoc.com";
 $CONFIG["SessionName"]="FooterCMS";
 
 $CONFIG['smarty']['rootpath']		= '/CMS'; 
@@ -29,10 +29,10 @@ $CONFIG['error_handler'] ="E_ALL";
 
 #[Database]
 $CONFIG['database']['provider']	= 'mysql';  //mssql,sqlsrv
-$CONFIG['database']['host']		= 'hdm-122.hichina.com';  
-$CONFIG['database']['database']	= 'hdm1220145_db';  
-$CONFIG['database']['user']		= 'hdm1220145';  
-$CONFIG['database']['psw']		= 'abcd1234'; 
+$CONFIG['database']['host']		= 'localhost';  
+$CONFIG['database']['database']	= 'medicalplatform';  
+$CONFIG['database']['user']		= 'root';  
+$CONFIG['database']['psw']		= 'root'; 
 
 
 #[File upload]

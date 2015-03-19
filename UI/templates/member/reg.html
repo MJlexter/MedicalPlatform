@@ -1,0 +1,155 @@
+{{include  file="$smarty_root/header.html" }}
+<div role="main" class="ui-content" style="padding:0;">
+    <div class="col-xs-12 text-center">
+        <img src="{{$rootpath}}/img/logowithname.png">
+    </div>
+    <hr style="margin-bottom:0px;" />
+    <div class="col-xs-12 small lighter" style="padding:0px;padding-top:15px;padding-bottom:15px;">
+        <div id="step1_title" class="col-xs-4">1 输入手机号</div>
+        <div id="step2_title" class="col-xs-4">2 输入验证码</div>
+        <div id="step3_title" class="col-xs-4">3 设置密码</div>
+    </div>
+    <div id="step1" class="col-xs-12">
+        <div class="col-xs-12">
+            <input type="number" maxlength="11" id="mobile_no" value="" style="border:1px solid #42A4D3" placeholder="请输入你的手机号" />
+        </div>
+        <div class="col-xs-12">
+            <a href="#" id="btnStep1" data-role="button" style="background-color:#42A4D3;color:snow; font-weight:lighter;">获取验证码</a>
+        </div>
+        <div class="col-xs-12">
+            <input type="checkbox" id="checkbox-1a" checked="">
+            <label for="checkbox-1a">我已阅读服务条款中的所有内容</label>
+        </div>
+    </div>
+    <div id="step2" class="col-xs-12">
+        <div class="col-xs-12">
+            <input type="number" maxlength="6" id="verify_code" value="" style="border:1px solid #42A4D3" placeholder="请输入手机短信获取的验证码" />
+        </div>
+        <div class="col-xs-12">
+            <a href="#" id="btnStep2" data-role="button" style="background-color:#42A4D3;color:snow; font-weight:lighter;">提交验证码</a>
+        </div>
+    </div>
+    <div id="step3" class="col-xs-12">
+        <div class="col-xs-12">
+            <input type="password" maxlength="20" id="password" value="" style="border:1px solid #42A4D3" placeholder="请设置不少于6位的登录密码" />
+        </div>
+        <div class="col-xs-12">
+            <a href="#" id="btnStep3" data-role="button" style="background-color:#42A4D3;color:snow; font-weight:lighter;">完成</a>
+        </div>
+    </div>
+</div>
+<script>
+    function SetStep(step) {
+
+        $("#step1").hide();
+        $("#step2").hide();
+        $("#step3").hide();
+
+        $("#step1_title").removeClass("bluefont");
+        $("#step2_title").removeClass("bluefont");
+        $("#step3_title").removeClass("bluefont");
+
+        $("#step" + step).show();
+        $("#step" + step + "_title").addClass("bluefont");
+
+    }
+
+    $(document).ready(function () {
+
+        SetStep(1);
+        $("#btnStep1").addClass("ui-state-disabled");
+        $("#btnStep2").addClass("ui-state-disabled");
+        $("#btnStep3").addClass("ui-state-disabled");
+
+        $("#mobile_no").keyup(function () {
+            var mobile = $("#mobile_no").val();
+            if (mobile.length == 11) {
+                $("#btnStep1").removeClass("ui-state-disabled");
+            } else {
+                $("#btnStep1").addClass("ui-state-disabled");
+            }
+        });
+        $("#btnStep1").click(function () {
+            var mobile = $("#mobile_no").val();
+            $("#btnStep1").addClass("ui-state-disabled");
+            var json={
+                "action":"reg",
+                "mobile":mobile
+            }
+            $.post("{{$rootpath}}/member/verifycode.php", json, function (data) {
+                //alert("b"+data+"a");
+                if (data == "HASREG") {
+                    PopupTips("此手机号码已经注册，请返回登录");
+                } else if(data=="SUCCESS"){
+                    SetStep(2);
+                } else {
+                    PopupTips("未知错误");
+                }
+                $("#btnStep1").removeClass("ui-state-disabled");
+            });
+        });
+
+
+        $("#verify_code").keyup(function () {
+            var verify_code = $("#verify_code").val();
+            if (verify_code.length == 6) {
+                $("#btnStep2").removeClass("ui-state-disabled");
+            } else {
+                $("#btnStep2").addClass("ui-state-disabled");
+            }
+        });
+        $("#btnStep2").click(function () {
+            var verify_code = $("#verify_code").val();
+            var mobile = $("#mobile_no").val();
+            $("#btnStep2").addClass("ui-state-disabled");
+            var json = {
+                "action": "valid",
+                "verify_code": verify_code,
+                "mobile": mobile
+            }
+            $.post("{{$rootpath}}/member/verifycode.php", json, function (data) {
+                //alert("b"+data+"a");
+                if (data == "INVALID") {
+                    PopupTips("验证码无效，请重新输入");
+                } else if (data == "SUCCESS") {
+                    SetStep(3);
+                } else {
+                    PopupTips("未知错误");
+                }
+                $("#btnStep2").removeClass("ui-state-disabled");
+            });
+        });
+
+
+        $("#password").keyup(function () {
+            var password = $("#password").val();
+            if (password.length >= 6) {
+                $("#btnStep3").removeClass("ui-state-disabled");
+            } else {
+                $("#btnStep3").addClass("ui-state-disabled");
+            }
+        });
+
+        $("#btnStep3").click(function () {
+            var password = $("#password").val();
+            var mobile = $("#mobile_no").val();
+            $("#btnStep3").addClass("ui-state-disabled");
+            var json = {
+                "password": password,
+                "mobile": mobile
+            }
+            $.post("{{$rootpath}}/member/quickreg.php", json, function (data) {
+                //alert("b"+data+"a");
+                if (data == "HASREG") {
+                    PopupTips("此手机号码已经注册，请返回登录");
+                } else if (data == "SUCCESS") {
+                    document.location.href = "{{$rootpath}}/member/loadlogin.php";
+                } else {
+                    PopupTips("未知错误");
+                }
+                $("#btnStep3").removeClass("ui-state-disabled");
+            });
+        });
+    });
+</script>
+{{include  file="$smarty_root/footer.html" }}

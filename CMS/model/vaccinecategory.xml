@@ -6,6 +6,32 @@
   <ismutillang>1</ismutillang>
   <fields>
     <field>
+      <name>超级分类</name>
+      <key>category</key>
+      <type>select</type>
+      <displayinlist>1</displayinlist>
+      <options>
+        <option>
+          <name>儿童</name>
+          <value>C</value>
+        </option>
+        <option>
+          <name>男性</name>
+          <value>M</value>
+        </option>
+        <option>
+          <name>女性</name>
+          <value>F</value>
+        </option>
+        <option>
+          <name>老人</name>
+          <value>E</value>
+        </option>
+      </options>
+      <search>1</search>
+      <notnull>1</notnull>
+    </field>
+    <field>
       <name>显示顺序</name>
       <key>seq</key>
       <type>number</type>

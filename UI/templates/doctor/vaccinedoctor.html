@@ -1,0 +1,169 @@
+{{include  file="$smarty_root/header.html" }}
+{{include  file="$smarty_root/bar.html" }}
+<div role="main" class="ui-content" style="padding:0;">
+    <div class="row xsmall" style="padding-top:10px;padding-bottom:10px;border-bottom:1px solid #ccc;">
+        <div class="col-xs-12">
+            <div class="col-xs-4" style="border-right:1px solid #ccc;">
+                <a href="#">
+                    <div class="text-center">全区</div>
+                </a>
+            </div>
+            <div class="col-xs-4">
+                <a href="#">
+                    <div class="text-center">筛选</div>
+                </a>
+            </div>
+            <div class="col-xs-4" style="border-left:1px solid #ccc;">
+                <a href="#">
+                    <div class="text-center">综合排序</div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <br />
+
+    <div id="menuPanel" class="vaccineList vaccineMenus" style="display:none; background: white; z-index: 9999;">
+        <div id="menu" style="width: 100%; float: left;">
+            <div id="districtMenu" style="width: 50%; float: left; background: #F0F0F0; height: 250px; OVERFLOW-X: hidden;">
+                <div onclick="openSubMenu('hotdistrictlist', 'districtMenu', this);" style="float: left; width: 100%;" ref_id="hotdistrictlist">
+                    <div>
+                        <span class="menuMainText">热门商区</span>
+                    </div>
+                </div>
+                <div onclick="openSubMenu('subwaylist', 'districtMenu', this);" style="float: left; width: 100%;" ref_id="subwaylist">
+                    <div>
+                        <span class="menuMainText">地铁沿线</span>
+                    </div>
+                </div>
+                {{foreach from=$district_condition.district item=rs}}
+                <div onclick="openSubMenu('district_{{$rs.district_id}}', 'districtMenu', this);" style="float: left; width: 100%;" ref_id="district_{{$rs.district_id}}">
+                    <div>
+                        <span class="menuMainText">{{$rs.name}}</span>
+                    </div>
+                </div>
+                {{/foreach}}
+            </div>
+
+            <div id="womanVaccineMenu" style="width: 100%; float: left; background: #F0F0F0; height: 250px; OVERFLOW-X: hidden;">
+                <div style="">
+                    <span class="menuMainText">智能排序</span>
+                </div>
+                <div>
+                    <span class="menuMainText">价格优先</span>
+                </div>
+                <div>
+                    <span class="menuMainText">评价最高</span>
+                </div>
+            </div>
+            <div id="hotdistrictlist" style="width: 50%; float: left; background: white;height: 250px; OVERFLOW-X: hidden;">
+                <a class="menuMainText menuSubText" href="#">全部商区</a>
+                {{foreach from=$district_condition.hotdistrict item=rs}}
+                <a class="menuMainText menuSubText" href="#">{{$rs.name}}</a>
+                {{/foreach}}
+            </div>
+
+            <div id="subwaylist" style="width: 50%; float: left; background: white;height: 250px; OVERFLOW-X: hidden;">
+                {{foreach from=$district_condition.subway item=rs}}
+                <a class="menuMainText menuSubText" href="#" onclick="openNextMenu(this)">{{$rs.name}}</a>
+                <div style="margin-left: 10px;display: none">
+                    <a class="menuMainText menuSubText" href="#" onclick="setMenuValue(this)">{{$rs.name}}沿线</a>
+                    {{foreach from=$rs.station_list item=rss}}
+                    <a class="menuMainText menuSubText" href="#" onclick="setMenuValue(this)">{{$rss.name}}</a>
+                    {{/foreach}}
+                </div>
+                {{/foreach}}
+            </div>
+            {{foreach from=$district_condition.district item=rs}}
+            <div id="district_{{$rs.district_id}}" style="width: 50%; float: left; background: white;height: 250px; OVERFLOW-X: hidden;">
+                <a class="menuMainText menuSubText" href="#">{{$rs.name}}全区</a>
+                {{foreach from=$rs.block_list item=rss}}
+                <a class="menuMainText menuSubText" href="#">{{$rss.name}}</a>
+                {{/foreach}}
+            </div>
+            {{/foreach}}
+        </div>
+    </div>
+
+
+    <script src="{{$rootpath}}/plugin/raty/jquery.raty.js"></script>
+    <script>
+        $.fn.raty.defaults.cancelOff = "{{$rootpath}}/plugin/raty/images/cancel-off.png";
+        $.fn.raty.defaults.cancelOn = "{{$rootpath}}/plugin/raty/images/cancel-on.png";
+        $.fn.raty.defaults.starHalf = "{{$rootpath}}/plugin/raty/images/star-half.png";
+        $.fn.raty.defaults.starOff = "{{$rootpath}}/plugin/raty/images/star-off.png";
+        $.fn.raty.defaults.starOn = "{{$rootpath}}/plugin/raty/images/star-on.png";
+    </script>
+    <link rel="stylesheet" href="{{$rootpath}}/plugin/raty/jquery.raty.css" />
+    <style>
+        .divraty img{
+            width: 12px;
+        }
+    </style>
+
+    <ul id="doctor_list" data-role="listview" data-filter="true" data-input="#filterTable-input">
+        {{foreach from=$doctorlist item=rs}}
+        <li data-icon="false" style="border-bottom-width:1px">
+            <div class="col-xs-4">
+                <div class="col-xs-12" style="padding:5px;">
+                    <img class="img-responsive" src="{{$uploadpath}}/doctor_photo/{{$rs.photo}}">
+                </div>
+                <div class="col-xs-12 xsmall yellowfont">
+                    总和评价: {{$rs.totle_score}}
+                </div>
+                <div class="col-xs-12 text-center xxsmall" style="padding-top:5px;">
+                    医术:{{$rs.pro_level}} 服务{{$rs.service_level}}
+                </div>
+            </div>
+            <div class="col-xs-8">
+                <div class="row">
+                    <div class="col-xs-6" style="padding:0px;">
+                        <div class="col-xs-8"><h3>{{$rs.doctor_name}}</h3></div>
+                        <div class="col-xs-4 grayfont" style="font-size:80%;margin-top:6px;">{{if $rs.is_general=='Y'}}全科{{else}}{{$rs.specialist}}{{/if}}</div>
+                    </div>
+                    <div class="col-xs-6 text-right" style="padding-left:0px;margin-top:3px;">
+                        <div class="divraty" score="{{$rs.totle_score}}"></div>
+                    </div>
+                </div>
+                <div class="row" style="padding:10px;min-height:80px;">
+                    {{foreach from=$rs.office_list item=ors}}
+                    <div class="row small" style="padding-bottom:5px;">
+                        <div class="col-xs-2"><img class="img-responsive" src="{{$rootpath}}/themes/img/icons/location.png" /></div>
+                        <div class="col-xs-8" style="padding:0px;margin-top:3px;">{{$ors.address}}</div>
+                        <div class="col-xs-1">></div>
+                    </div>
+                    {{/foreach}}
+                </div>
+                <div class="row">
+                    <div class="col-xs-6" style="padding:0px;">
+                        <a href="{{$rootpath}}/doctor/detail.php?action=vaccine&id={{$rs.doctor_id}}&vid={{$vaccine_id}}" data-role="button" style="padding:5px;background-color: #42A4D3;color:snow;font-weight:lighter;">预约{{$rs.web_price}}</a>
+                    </div>
+                    <div class="col-xs-6 small grayfont text-right" style="margin-top:13px;">
+                        标准价:{{$rs.price}}
+                    </div>
+                </div>
+            </div>
+        </li>
+        {{/foreach}}
+    </ul>
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.divraty').each(function () {
+                var score = $(this).attr("score");
+                $(this).raty({
+                    readOnly: true,
+                    space:false,
+                    score: score
+                });
+            });
+            $("#doctor_list li:last").css("border-bottom-width", "0px");
+        });
+    </script>
+
+    <br />
+</div>    
+
+
+{{include  file="$smarty_root/navbar.html" }}
+{{include  file="$smarty_root/footer.html" }}

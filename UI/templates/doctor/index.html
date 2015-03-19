@@ -1,0 +1,112 @@
+{{include  file="$smarty_root/header.html" }}
+{{include  file="$smarty_root/bar.html" }}
+<div role="main" class="ui-content" style="padding:0;">
+    <div class="row xsmall" style="padding-top:10px;padding-bottom:10px;border-bottom:1px solid #ccc;">
+        <div class="col-xs-12">
+            <div class="col-xs-3" style="border-right:1px solid #ccc;">
+                <a href="#">
+                    <div class="text-center">地区</div>
+                </a>
+            </div>
+            <div class="col-xs-3">
+                <a href="#">
+                    <div class="text-center">选择科目</div>
+                </a>
+            </div>
+            <div class="col-xs-3" style="border-left:1px solid #ccc;">
+                <a href="#">
+                    <div class="text-center">筛选</div>
+                </a>
+            </div>
+            <div class="col-xs-3" style="border-left:1px solid #ccc;">
+                <a href="#">
+                    <div class="text-center">综合排序</div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <img class="img-responsive" src="{{$rootpath}}/themes/img/temp/index_6.png" />
+    </div>
+     <ul id="doctor_list" data-role="listview" data-filter="true" data-input="#filterTable-input">
+        {{foreach from=$doctor_list item=rs}}
+        <li data-icon="false" style="border-bottom-width:1px">
+            <a href="{{$rootpath}}/doctor/detail.php?id={{$rs.doctor_id}}">
+                <div class="col-xs-4">
+                    <div class="col-xs-12" style="padding:5px;">
+                        <img class="img-responsive" src="{{$uploadpath}}/doctor_photo/{{$rs.photo}}">
+                    </div>
+                    <div class="col-xs-12 xsmall yellowfont">
+                        总和评价: {{$rs.totle_score}}
+                    </div>
+                    <div class="col-xs-12 text-center xxsmall" style="padding-top:5px;">
+                        医术:{{$rs.pro_level}} 服务{{$rs.service_level}}
+                    </div>
+                </div>
+                <div class="col-xs-8">
+                    <div class="row">
+                        <div class="col-xs-7" style="padding:0px;">
+                            <div class="col-xs-8"><h3>{{$rs.doctor_name}}</h3></div>
+                            <div class="col-xs-4 grayfont" style="font-size:80%;margin-top:6px;">{{if $rs.is_general=='Y'}}全科{{else}}{{$rs.specialist}}{{/if}}</div>
+                        </div>
+                        <div class="col-xs-5 text-right" style="padding-left:0px;margin-top:3px;">
+                            <div class="divraty" score="{{$rs.totle_score}}"></div>
+                        </div>
+                    </div>
+                    <div class="row" style="padding:10px;min-height:80px;">
+                        {{foreach from=$rs.office_list item=ors}}
+                        <div class="row small" style="padding-bottom:5px;">
+                            <div class="col-xs-2"><img class="img-responsive" src="{{$rootpath}}/themes/img/icons/location.png" /></div>
+                            <div class="col-xs-8" style="padding:0px;margin-top:3px;">{{$ors.address}}</div>
+                            <div class="col-xs-1">></div>
+                        </div>
+                        {{/foreach}}
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <span class="bsmall lighter grayfont">{{$rs.advanced}}</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </li>
+        {{/foreach}}
+    </ul>
+
+    <script src="{{$rootpath}}/plugin/raty/jquery.raty.js"></script>
+    <script>
+        $.fn.raty.defaults.cancelOff = "{{$rootpath}}/plugin/raty/images/cancel-off.png";
+        $.fn.raty.defaults.cancelOn = "{{$rootpath}}/plugin/raty/images/cancel-on.png";
+        $.fn.raty.defaults.starHalf = "{{$rootpath}}/plugin/raty/images/star-half.png";
+        $.fn.raty.defaults.starOff = "{{$rootpath}}/plugin/raty/images/star-off.png";
+        $.fn.raty.defaults.starOn = "{{$rootpath}}/plugin/raty/images/star-on.png";
+    </script>
+    <link rel="stylesheet" href="{{$rootpath}}/plugin/raty/jquery.raty.css" />
+    <style>
+        .divraty img {
+            width: 12px;
+        }
+    </style>
+
+    
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.divraty').each(function () {
+                var score = $(this).attr("score");
+                $(this).raty({
+                    readOnly: true,
+                    space:false,
+                    score: score
+                });
+            });
+        });
+    </script>
+
+    <br />
+</div>    
+
+
+{{include  file="$smarty_root/navbar.html" }}
+{{include  file="$smarty_root/footer.html" }}

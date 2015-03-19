@@ -62,6 +62,12 @@
       <notnull>1</notnull>
     </field>
     <field>
+      <name>专长</name>
+      <key>advanced</key>
+      <type>longtext</type>
+      <ismutillang>1</ismutillang>
+    </field>
+    <field>
       <name>专业资格</name>
       <key>pro_title</key>
       <type>longtext</type>
@@ -135,6 +141,12 @@
       <type>longtext</type>
       <ismutillang>1</ismutillang>
       <notnull>1</notnull>
+    </field>
+    <field>
+      <name>预约时间</name>
+      <key>open_hour</key>
+      <type>longtext</type>
+      <ismutillang>1</ismutillang>
     </field>
     <field>
       <name>备注</name>

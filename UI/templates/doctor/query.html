@@ -1,0 +1,91 @@
+{{include  file="$smarty_root/header.html" }}
+
+
+<div role="main" class="ui-content" style="padding:0px;">
+    <div class="col-xs-12">
+        <textarea style="min-height:250px;" maxlength="1000" cols="40" rows="8" name="textarea" id="description" placeholder="请详细描述您的健康问题，疾病症状等信息。请尽量上传化验单及患病部位的照片。">{{$info.description}}</textarea>
+    </div>
+    <div class="col-xs-12">
+        <div class="col-xs-9 text-right" style="padding-top:3px;">
+            <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
+                <input type="radio" name="radio-choice-b" id="r_male" value="m" checked="checked">
+                <label for="r_male">男性</label>
+                <input type="radio" name="radio-choice-b" id="r_female" value="f">
+                <label for="r_female">女性</label>
+            </fieldset>
+        </div>
+        <div class="col-xs-3 text-right">
+            <input id="age" type="number" maxlength="2" style="background-color:#F9F9F9" value="{{$info.age}}" placeholder="年龄" />
+        </div>
+    </div>
+    <hr style="margin-bottom:0px;" />
+    <div class="col-xs-12 text-center xsmall yellowfont" style="padding-top:10px;">
+        提示：上传疾病照片（只有该医生可见）
+    </div>
+    <div class="col-xs-12" style="padding-top:15px;">
+        <div class="col-xs-4 text-center">
+            <img id="img_1_d" src="{{if $info.img_1==""}}{{$rootpath}}/themes/img/icons/upload_pic.png{{else}}{{$uploadpath}}/clientquery/{{$info.img_1}}{{/if}}" class="img-responsive upload_img" />
+            <input id="img_1" data-role="none" name="img_1" onchange="upload('img_1','clientquery')" type="file" style="width:1px;height:1px;" />
+            <input id="img_1_v" type="hidden" value="{{$info.img_1}}" />
+        </div>
+        <div class="col-xs-4 text-center">
+            <img id="img_2_d" src="{{if $info.img_2==""}}{{$rootpath}}/themes/img/icons/upload_pic.png{{else}}{{$uploadpath}}/clientquery/{{$info.img_2}}{{/if}}" class="img-responsive upload_img" />
+            <input id="img_2" data-role="none" name="img_2" onchange="upload('img_2','clientquery')" type="file" style="width:1px;height:1px;" />
+            <input id="img_2_v" type="hidden" value="{{$info.img_2}}" />
+        </div>
+        <div class="col-xs-4 text-center">
+            <img id="img_3_d" src="{{if $info.img_3==""}}{{$rootpath}}/themes/img/icons/upload_pic.png{{else}}{{$uploadpath}}/clientquery/{{$info.img_3}}{{/if}}" class="img-responsive upload_img" />
+            <input id="img_3" data-role="none" name="img_3" onchange="upload('img_3','clientquery')" type="file" style="width:1px;height:1px;" />
+            <input id="img_3_v" type="hidden" value="{{$info.img_3}}" />
+        </div>
+    </div>
+    <div class="col-xs-12" style="padding-top:15px;">
+        <a href="#" id="btnSubmit" {{if $info.id!=""}}class="ui-state-disabled"{{/if}} data-role="button" style="color:snow; background-color:#E95414;">{{if $info.id==""}}提交问题{{else}}提交成功{{/if}}</a>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $("#btnSubmit").click(function () {
+
+            var description = $("#description").val();
+            if ($.trim(description) == "") {
+                PopupTips("请描述你需要咨询的问题。")
+                return;
+            }
+            var is_male = $("#r_male").prop("checked") ? "Y" : "N";
+            var age = $("#age").val();
+            var img_1 = $("#img_1_v").val();
+            var img_2 = $("#img_2_v").val();
+            var img_3 = $("#img_3_v").val();
+
+            $("#btnSubmit").addClass("ui-state-disabled");
+            var json = {
+                "action": "submit",
+                "doctor_id":{{$doctor_id}},
+                "description": description,
+                "is_male": is_male,
+                "age": age,
+                "img_1": img_1,
+                "img_2": img_2,
+                "img_3": img_3
+            };
+            $.post("{{$rootpath}}/doctor/query.php", json, function (data) {
+                //alert(data);
+                if(data=="DUPLIC"){
+                    PopupTips("您已经提交了问题，请耐心等待。");
+                    $("#btnSubmit").removeClass("ui-state-disabled");
+                }else if(data=="SUCCESS"){
+                    $("#btnSubmit").text("提交成功");
+                }else{
+                    PopupTips("未知错误");
+                    $("#btnSubmit").removeClass("ui-state-disabled");
+                }
+            });
+
+        });
+        
+    });
+
+</script>
+
+{{include  file="$smarty_root/footer.html" }}

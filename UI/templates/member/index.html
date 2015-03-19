@@ -1,0 +1,72 @@
+{{include  file="$smarty_root/header.html" }}
+<div role="main" class="ui-content" style="padding:0;">
+    <div class="row" style="background:url('{{$rootpath}}/themes/img/temp/member_bg.png') ;background-size: cover;">
+        <div class="col-xs-12 text-center" style="padding-top:15px;">
+            <h3 style="color:snow;">我的</h3>
+        </div>
+        <div class="col-xs-12 text-center" >
+            <img id="photo_d" class="upload_img ODdivImg" src="{{if $info.photo==" "}}{{$rootpath}}/themes/img/temp/member_1.png{{else}}{{$uploadpath}}/clientphoto/{{$info.photo}}{{/if}}" />
+            <input id="photo" data-role="none" name="photo" onchange="upload('photo','clientphoto')" type="file" style="width:1px;height:1px;" />
+            <input id="photo_v" type="hidden" value="{{$info.photo}}" />
+        </div>
+        <div class="col-xs-12 text-center" style="color:snow;padding-top:15px;" >
+            Hi {{$member.name}} !
+        </div>
+        <div class="col-xs-12" style="padding-bottom:10px;">
+            <div class="col-xs-4">
+                <a href="{{$rootpath}}/member/bookinglist.php" data-role="button"  style="color:#8D8D8D;font-weight:lighter;padding:2px;"><img src="{{$rootpath}}/themes/img/temp/member_booking.png" style="width:18px;" /> 我的预约</a>
+            </div>
+            <div class="col-xs-4">
+                <a href="{{$rootpath}}/member/questionlist.php" data-role="button" style="color:#8D8D8D;font-weight:lighter;padding:2px;"><img src="{{$rootpath}}/themes/img/temp/member_question.png" style="width:18px;" /> 我的咨询</a>
+            </div>
+            <div class="col-xs-4">
+                <a href="{{$rootpath}}/member/doctorlist.php" data-role="button" style="color:#8D8D8D;font-weight:lighter;padding:2px;"><img src="{{$rootpath}}/themes/img/temp/member_doctor.png" style="width:18px;" /> 我的医生</a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12" style="padding-top:15px;padding-bottom:15px;border:1px solid  #eee;">
+            <a href="{{$rootpath}}/member/info.php">
+                <div class="col-xs-2" style="padding-top:10px;"><img class="img-responsive" src="{{$rootpath}}/themes/img/temp/member_qii.png" /></div>
+                <div class="col-xs-8" style="padding-top:10px;padding-left:0px;font-size:125%">个人资料</div>
+                <div class="col-xs-2" style="padding-top:3px;"><a class="ui-btn ui-shadow ui-corner-all ui-icon-carat-r ui-btn-icon-notext">Go</a></div>
+            </a>
+        </div>
+        <div class="col-xs-12" style="padding-top:15px;padding-bottom:15px;border:1px solid  #eee;">
+            <a href="{{$rootpath}}/member/health.php">
+                <div class="col-xs-2" style="padding-top:10px;"><img class="img-responsive" src="{{$rootpath}}/themes/img/temp/member_qii.png" /></div>
+                <div class="col-xs-8" style="padding-top:10px;padding-left:0px;font-size:125%">个人健康史</div>
+                <div class="col-xs-2" style="padding-top:3px;"><a class="ui-btn ui-shadow ui-corner-all ui-icon-carat-r ui-btn-icon-notext">Go</a></div>
+            </a>
+        </div>
+        <div class="col-xs-12" style="padding-top:15px;padding-bottom:15px;border:1px solid  #eee;">
+            <a href="{{$rootpath}}/member/infomation.php">
+                <div class="col-xs-2" style="padding-top:10px;"><img class="img-responsive" src="{{$rootpath}}/themes/img/temp/member_qii.png" /></div>
+                <div class="col-xs-8" style="padding-top:10px;padding-left:0px;font-size:125%">消息中心</div>
+                <div class="col-xs-2" style="padding-top:3px;"><a class="ui-btn ui-shadow ui-corner-all ui-icon-carat-r ui-btn-icon-notext">Go</a></div>
+            </a>
+        </div>
+        <div class="col-xs-12" style="padding-top:15px;padding-bottom:15px;border:1px solid  #eee;">
+            <a href="{{$rootpath}}/member/feedback.php">
+                <div class="col-xs-2" style="padding-top:10px;"><img class="img-responsive" src="{{$rootpath}}/themes/img/temp/member_qii.png" /></div>
+                <div class="col-xs-8" style="padding-top:10px;padding-left:0px;font-size:125%">意见反馈</div>
+                <div class="col-xs-2" style="padding-top:3px;"><a class="ui-btn ui-shadow ui-corner-all ui-icon-carat-r ui-btn-icon-notext">Go</a></div>
+            </a>
+        </div>
+        <div class="col-xs-12" style="padding-top:15px;padding-bottom:15px;border:1px solid  #eee;">
+            <a href="{{$rootpath}}/member/aboutus.php">
+                <div class="col-xs-2" style="padding-top:10px;"><img class="img-responsive" src="{{$rootpath}}/themes/img/temp/member_qii.png" /></div>
+                <div class="col-xs-8" style="padding-top:10px;padding-left:0px;font-size:125%">关于我们</div>
+                <div class="col-xs-2" style="padding-top:3px;"><a class="ui-btn ui-shadow ui-corner-all ui-icon-carat-r ui-btn-icon-notext">Go</a></div>
+            </a>
+        </div>
+    </div>
+</div>
+<script>
+    function uploadSuccessCallBack(key, module,value) {
+        updateField("photo", value);
+    }
+</script>
+{{include  file="$smarty_root/member/member_common.html" }}
+{{include  file="$smarty_root/navbar.html" }}
+{{include  file="$smarty_root/footer.html" }}

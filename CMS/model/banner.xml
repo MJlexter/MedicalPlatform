@@ -2,7 +2,7 @@
 <root>
   <name>广告</name>
   <tablename>dr_tb_banner</tablename>
-  <searchcondition>1==1</searchcondition>
+  <searchcondition>1=1</searchcondition>
   <fields>
     <field>
       <name>代码</name>
@@ -39,23 +39,22 @@
       <name>超链接</name>
       <key>link</key>
       <type>longtext</type>
-      <notnull>1</notnull>
     </field>
     <field>
       <name>广告图（简体）</name>
-      <key>pic</key>
+      <key>pic_sc</key>
       <type>upload</type>
       <uploadmodule>banner</uploadmodule>
     </field>
     <field>
       <name>广告图（繁体）</name>
-      <key>pic</key>
+      <key>pic_tc</key>
       <type>upload</type>
       <uploadmodule>banner</uploadmodule>
     </field>
     <field>
       <name>广告图（English）</name>
-      <key>pic</key>
+      <key>pic_en</key>
       <type>upload</type>
       <uploadmodule>banner</uploadmodule>
     </field>
@@ -66,6 +65,24 @@
       <notnull>1</notnull>
       <displayinlist>1</displayinlist>
       <search>1</search>
+    </field>
+    <field>
+      <name>状态</name>
+      <key>status</key>
+      <type>select</type>
+      <displayinlist>1</displayinlist>
+      <options>
+        <option>
+          <name>启用</name>
+          <value>A</value>
+        </option>
+        <option>
+          <name>禁用</name>
+          <value>I</value>
+        </option>
+      </options>
+      <search>1</search>
+      <notnull>1</notnull>
     </field>
   </fields>
   <options>

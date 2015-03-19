@@ -41,8 +41,32 @@
       <disableindetail>0</disableindetail>
     </field>
     <field>
-      <name>显示图片</name>
+      <name>列表图片</name>
       <key>image</key>
+      <type>upload</type>
+      <uploadmodule>vaccine</uploadmodule>
+    </field>
+    <field>
+      <name>详情宣传图1</name>
+      <key>image_1</key>
+      <type>upload</type>
+      <uploadmodule>vaccine</uploadmodule>
+    </field>
+    <field>
+      <name>详情宣传图2</name>
+      <key>image_2</key>
+      <type>upload</type>
+      <uploadmodule>vaccine</uploadmodule>
+    </field>
+    <field>
+      <name>详情宣传图3</name>
+      <key>image_3</key>
+      <type>upload</type>
+      <uploadmodule>vaccine</uploadmodule>
+    </field>
+    <field>
+      <name>详情宣传图4</name>
+      <key>image_4</key>
       <type>upload</type>
       <uploadmodule>vaccine</uploadmodule>
     </field>
@@ -69,7 +93,7 @@
     </field>
     <field>
       <name>接种次数</name>
-      <key>injection_time</key>
+      <key>injection_count</key>
       <type>longtext</type>
       <ismutillang>1</ismutillang>
       <notnull>1</notnull>
@@ -152,15 +176,17 @@
       <notnull>1</notnull>
     </field>
     <field>
-      <name>疫苗接种标准价格（HK$）</name>
-      <key>standard_price</key>
-      <type>number</type>
+      <name>参考价格</name>
+      <key>ref_price</key>
+      <ismutillang>1</ismutillang>
+      <type>text</type>
       <notnull>1</notnull>
     </field>
     <field>
-      <name>折扣（%）</name>
-      <key>discount</key>
-      <type>number</type>
+      <name>标准价格</name>
+      <key>standard_price</key>
+      <ismutillang>1</ismutillang>
+      <type>text</type>
       <notnull>1</notnull>
     </field>
     <field>

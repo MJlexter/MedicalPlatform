@@ -206,7 +206,7 @@
     </mainmenu>
     <mainmenu>
       <module>appointment</module>
-      <name>预约</name>
+      <name>日常处理</name>
       <submenus>
         <submenu>
           <id>appointment_list</id>
@@ -214,9 +214,9 @@
           <url>/Appointment/appointment.php</url>
         </submenu>
         <submenu>
-          <id>#</id>
-          <name>Coming Soon</name>
-          <url>#</url>
+          <id>query_list</id>
+          <name>客户咨询</name>
+          <url>/Appointment/doctorquery.php</url>
         </submenu>
       </submenus>
     </mainmenu>

@@ -1,0 +1,78 @@
+{{include  file="$smarty_root/header.html" }}
+{{include  file="$smarty_root/bar.html" }}
+<div role="main" class="ui-content" style="padding:0;">
+    <div class="row" style="background: #DBDBDC;">
+        <div class="col-xs-12">
+            <div class="col-xs-6"><a href="{{$rootpath}}/vaccine"><h5>猜你在找</h5></a></div>
+        </div>
+    </div>
+    <div class="row xsmall">&nbsp;</div>
+        <ul data-role="listview" data-filter="true" data-input="#filterTable-input" >
+            {{foreach from=$VaccineList item=rs}}
+            <li  data-icon="false">
+            <a href="{{$rootpath}}/vaccine/detail.php?id={{$rs.id}}">
+                <div class="col-xs-4">
+                    <img class="img-responsive" src="{{$uploadpath}}/vaccine/{{$rs.image}}" />
+                </div>
+                <div class="col-xs-8" style="padding-left:10px;">
+                    <div class="col-xs-12">
+                        <div class="row" style="padding-bottom:5px;">{{$rs.name}}</div>
+                        <div class="row xsmall">
+                            <div class="col-xs-10">
+                                <div class="row" style="padding-bottom:5px;">[{{$rs.effect}}]</div>
+                                <div class="row" style="padding-bottom:5px;">{{$rs.used_group}}</div>
+                            </div>
+                            <div class="col-xs-2 text-right" style="padding:0;font-size:30px;margin-top:-20px;">
+                                >
+                            </div>
+                        </div>
+                        <div class="row xsmall" style="padding-bottom:5px;">
+                            <div class="col-xs-6" style="padding:0;">参考价：<span style="color: #42A4D3;font-size:17px;">{{$rs.ref_price}}</span></div>
+                            <div class="col-xs-6 text-right" style="padding:0;">已预约: {{$rs.booking_count}}</div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            </li>
+            {{/foreach}}
+        </ul>
+    <br />
+    
+</div>
+    <script>
+        $(document).ready(function () {
+            $(".btnSubCategory").click(function () {
+                var subcat = $(this).attr("idlist");
+                var subcatids = new Array();
+                if (subcat == "all") {
+                    var parentid = $(this).parent().attr("id");
+                    $("#" + parentid + " a").each(function () {
+                        var idlist = $(this).attr("idlist");
+                        if (idlist != "all" && idlist != "") {
+                            var ids = idlist.split(",");
+                            subcatids = subcatids.concat(ids);
+                        }
+                    });
+                } else {
+                    var ids = subcat.split(",");
+                    subcatids = subcatids.concat(ids);
+                }
+
+                $(".vaccineDetails").each(function () {
+
+                    var vaccine_id = $(this).attr("vaccine_id");
+                    if (subcatids.indexOf(vaccine_id) >= 0) {
+                        $(this).show();
+                    } else {
+                        $(this).hide();
+                    }
+                });
+
+                $("#menuPanel").css("display", "none");
+                $("#cover").css("display", "none");
+            });
+        });
+    </script>
+
+{{include  file="$smarty_root/navbar.html" }}
+    {{include  file="$smarty_root/footer.html" }}

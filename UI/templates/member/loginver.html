@@ -1,0 +1,62 @@
+{{include  file="$smarty_root/header.html" }}
+<div role="main" class="ui-content">
+    <div class="col-xs-12 text-right" style="padding-top:10px;">
+        <a href="{{$rootpath}}/member/reg.php" style="color:#42A4D3;font-weight:lighter;"><h4>快速注册</h4></a>
+    </div>
+    <div class="col-xs-12">
+            <input type="number" maxlength="11" class="inp" id="mobile_no" value="" style="border:1px solid #42A4D3" placeholder="手机号" />
+    </div>
+    <div class="col-xs-12">
+        <input type="number" maxlength="6" class="inp" id="verifycode" value="" style="border:1px solid #42A4D3" placeholder="验证码" />
+    </div>
+    <div class="col-xs-12">
+        <a href="#" data-role="button" class="ui-state-disabled" id="btnLogin" style="background-color:#42A4D3;color:snow; font-weight:lighter;">登录</a>
+    </div>
+    <div class="col-xs-12 text-right" style="padding-top:10px;">
+        <a href="{{$rootpath}}/member/login.php" style="color:#42A4D3;font-weight:lighter;"><h4>密码登录</h4></a>
+    </div>
+</div>
+<script>
+
+    $(document).ready(function () {
+
+        $(".inp").keyup(function () {
+            var mobile_no = $("#mobile_no").val();
+            var verifycode = $("#verifycode").val();
+            if (verifycode.length == 6 || mobile_no.length == 11) {
+                $("#btnLogin").removeClass("ui-state-disabled");
+            } else {
+                $("#btnLogin").addClass("ui-state-disabled");
+            }
+        });
+        $("#btnLogin").click(function () {
+            var mobile = $("#mobile_no").val();
+            var verifycode = $("#verifycode").val();
+
+            var json = {
+                "action": "verifycode",
+                "mobile": mobile,
+                "verifycode": verifycode
+            };
+            $("#btnLogin").addClass("ui-state-disabled");
+
+            $.post("{{$rootpath}}/member/quicklogin.php", json, function (data) {
+                //alert(data);
+                if (data == "NOMEMBER") {
+                    PopupTips("此手机号码未注册，请先注册");
+                } else if (data == "VCINCORRECT") {
+                    PopupTips("验证码不正确，请重新输入");
+                } else if (data == "SUCCESS") {
+                    document.location.href = "{{$rootpath}}/member/loadlogin.php";
+                } else {
+                    PopupTips("未知错误");
+                }
+                $("#btnLogin").addClass("ui-state-disabled");
+
+            });
+
+        });
+    });
+
+</script>
+{{include  file="$smarty_root/footer.html" }}

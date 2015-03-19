@@ -32,7 +32,9 @@
 union
 select count(1) count,'dr_tb_requirement' name from dr_tb_requirement where handling_user=$user_id and handling_type='P'
 union
-select count(1) count,'dr_tb_requirement' name from dr_tb_requirement where submit_user=$user_id and handling_type<>'P'  and review_type='P'   ";
+select count(1) count,'dr_tb_requirement' name from dr_tb_requirement where submit_user=$user_id and handling_type<>'P'  and review_type='P' 
+union
+select count(1) count,'dr_tb_member_question' name from dr_tb_member_question where status='P' and doctor_id=0  ";
 
 		$query = $this->dbmgr->query($sql);
 		$result = $this->dbmgr->fetch_array_all($query); 
@@ -107,6 +109,26 @@ inner join dr_tb_user user on m.handling_user=user.id
 		$arr["third"]="处理人";
 		$arr["count"]=count($result);
 		$arr["link"]=$CONFIG['rootpath']."/Other/requirement.php";
+		$Array[]=$arr;
+
+		
+		$arr=Array();
+		$arr["name"]="等待处理客户问题";
+		$user_id=mysql_real_escape_string($user_id);
+		$sql="select  m.id,m.member_name as first,
+ m.member_mobile as second,m.submit_date as third 
+from dr_tb_member_question m
+		where status='P' and doctor_id=0
+        order by m.submit_date desc
+		limit 0,3 ";
+		$query = $this->dbmgr->query($sql);
+		$result = $this->dbmgr->fetch_array_all($query); 
+		$arr["result"]=$result;
+		$arr["first"]="客户名称";
+		$arr["second"]="客户名称";
+		$arr["third"]="提交日期";
+		$arr["count"]=count($result);
+		$arr["link"]=$CONFIG['rootpath']."/Appointment/doctorquery.php";
 		$Array[]=$arr;
 
 		return $Array;

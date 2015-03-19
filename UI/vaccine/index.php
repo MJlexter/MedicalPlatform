@@ -10,11 +10,12 @@
   require ROOT.'/classes/datamgr/vaccine.cls.php';
 
   $vaccineList=$vaccineMgr->getVaccineList();
+  //print_r($vaccineList);
   $smarty->assign("VaccineList",$vaccineList);
 
   $vaccineCategory=$vaccineMgr->getVaccineCategory();
   $smarty->assign("VaccineCategory",$vaccineCategory);
 
-  $smarty->display(ROOT.'/templates/mobile/vaccine/index.html');
+  $smarty->display(ROOT.'/templates/vaccine/index.html');
 
 ?>

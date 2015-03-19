@@ -17,6 +17,10 @@
  $PNG_TEMP_DIR=ROOT."/".$CONFIG['qr_code']['folder']."/";
  $filename = md5($data.'|'.$errorCorrectionLevel.'|'.$matrixPointSize).'.png';
  QRcode::png($data, $PNG_TEMP_DIR.$filename, $errorCorrectionLevel, $matrixPointSize, 2);
+
+
+
+
  return $CONFIG["rootpath"]."/".$CONFIG['qr_code']['folder']."/".$filename;
  }
  

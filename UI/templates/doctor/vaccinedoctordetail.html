@@ -1,0 +1,142 @@
+{{include  file="$smarty_root/header.html" }}
+{{include  file="$smarty_root/bar.html" }}
+
+<div role="main" class="ui-content" style="padding:0px;">
+    <div class="col-xs-12" style="padding-top:10px;padding-bottom:10px;" >
+        <div class="col-xs-3" style="margin-top:10px;">
+            <div class="row">
+                <img class="img-responsive" src="{{$uploadpath}}/doctor_photo/{{$info.photo}}">
+            </div>
+            <div class="row xsmall ">
+                <div class="col-lg-3"></div>
+                <div class="col-lg-6">
+                    <a href="#" data-role="button" style="padding:3px;font-size:10px;"> <span class="yellowfont">+</span> 关注</a>
+                </div>
+                <div class="col-lg-3"></div>
+
+            </div>
+        </div>
+        <div class="col-xs-6">
+            <div class="row h4" style="padding-left:15px;">
+                {{$info.name}}&nbsp;&nbsp;<span class="grayfont">{{if $info.is_general=='Y'}}全科{{else}}{{$info.specialist}}{{/if}}</span>
+            </div>
+            <div class="row h6 grayfont" style="padding-left:15px;font-weight:lighter;">
+                {{$info.pro_title}}
+            </div>
+        </div>
+        <div class="col-xs-3 text-right" style="padding:0px;">
+            <div class="col-xs-12" style="padding:0px;">
+                <a href="{{$rootpath}}/order/order.php?action=vaccine&did={{$info.id}}&vid={{$vaccine_id}}" data-role="button" style="padding:3px;color:snow; background-color:#E95414;font-size:14px;">免费预约</a>
+            </div>
+            <div class="col-xs-12 xsmall yellowfont" style="padding:0px;">
+                {{$info.booking_count}}人已预约
+            </div>
+        </div>
+    </div>
+    <hr style="margin-bottom:0px;" />
+    <div class="col-xs-12">
+        <div class="row" style="padding-top:10px;">
+            <div class="col-xs-1"><img width="20px" src="{{$rootpath}}/themes/img/icons/vaccine_introduce.png"></div>
+            <div class="col-xs-10">简介</div>
+        </div>
+        <div class="xsmall">
+            <p>
+                {{$info.summary}}
+            </p>
+        </div>
+    </div>
+    <hr style="margin-bottom:0px;" />
+    <div class="col-xs-12">
+        <div class="row" style="padding-top:10px;">
+            <div class="col-xs-1"><img width="20px" src="{{$rootpath}}/themes/img/icons/vaccine_effect.png"></div>
+            <div class="col-xs-10">资质</div>
+        </div>
+        <div class="xsmall">
+            <p>
+                {{$info.post_process}}
+            </p>
+        </div>
+    </div>
+    <script src="{{$rootpath}}/plugin/raty/jquery.raty.js"></script>
+    <script>
+        $.fn.raty.defaults.cancelOff = "{{$rootpath}}/plugin/raty/images/cancel-off.png";
+        $.fn.raty.defaults.cancelOn = "{{$rootpath}}/plugin/raty/images/cancel-on.png";
+        $.fn.raty.defaults.starHalf = "{{$rootpath}}/plugin/raty/images/star-half.png";
+        $.fn.raty.defaults.starOff = "{{$rootpath}}/plugin/raty/images/star-off.png";
+        $.fn.raty.defaults.starOn = "{{$rootpath}}/plugin/raty/images/star-on.png";
+    </script>
+    <style>
+        .divraty img {
+            width: 12px;
+        }
+    </style>
+    <hr style="margin-bottom:0px;border-top:20px solid #ccc" />
+    <div class="col-xs-12 xsmall" style="padding:10px;">
+        <div class="col-xs-3">推荐指数</div>
+        <div class="col-xs-5"><div class="divraty" score="{{$info.totle_score}}"></div></div>
+        <div class="col-xs-4 text-right">
+        {{if $info.cp_totle_score_t=="up"}}
+        高于同行{{$info.cp_totle_score}}%            
+        {{elseif $info.cp_totle_score_t=="down"}} 
+        低于同行{{$info.cp_totle_score}}%
+        {{else}}
+        和同行一样水准
+        {{/if}}</div>
+    </div>
+    <hr style="margin-bottom:0px;" />
+    <div class="col-xs-12 xsmall" style="padding:10px;">
+        <div class="col-xs-3">服务水平</div>
+        <div class="col-xs-5"><div class="divraty" score="{{$info.service_level}}"></div></div>
+        <div class="col-xs-4 text-right">
+            {{if $info.cp_service_level_t=="up"}}
+            高于同行{{$info.cp_service_level}}%
+            {{elseif $info.cp_service_level_t=="down"}}
+            低于同行{{$info.cp_service_level}}%
+            {{else}}
+            和同行一样水准
+            {{/if}}
+        </div>
+    </div>
+    <hr style="margin-bottom:0px;" />
+    <div class="col-xs-12 xsmall" style="padding:10px;">
+        <div class="col-xs-3">专业态度</div>
+        <div class="col-xs-5"><div class="divraty" score="{{$info.pro_level}}"></div></div>
+        <div class="col-xs-4 text-right">
+            {{if $info.cp_pro_level_t=="up"}}
+            高于同行{{$info.cp_pro_level}}%
+            {{elseif $info.cp_pro_level_t=="down"}}
+            低于同行{{$info.cp_pro_level}}%
+            {{else}}
+            和同行一样水准
+            {{/if}}
+        </div>
+    </div>
+    <hr style="margin-bottom:0px;" />
+    <div class="col-xs-12 xsmall" style="padding:10px;">
+        <div class="col-xs-3">设备环境</div>
+        <div class="col-xs-5"><div class="divraty" score="{{$info.facility_level}}"></div></div>
+        <div class="col-xs-4 text-right">
+            {{if $info.cp_facility_level_t=="up"}}
+            高于同行{{$info.cp_facility_level}}%
+            {{elseif $info.cp_facility_level_t=="down"}}
+            低于同行{{$info.cp_facility_level}}%
+            {{else}}
+            和同行一样水准
+            {{/if}}
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.divraty').each(function () {
+                var score = $(this).attr("score");
+                $(this).raty({
+                    readOnly: true,
+                    score: score
+                });
+            });
+        });
+    </script>
+</div>
+{{include  file="$smarty_root/navbar.html" }}
+{{include  file="$smarty_root/footer.html" }}

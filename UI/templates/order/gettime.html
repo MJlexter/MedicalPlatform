@@ -1,0 +1,7 @@
+{{if $timelistcount>0}}
+{{foreach from=$timelist item=rs}}
+<option value="{{$rs.id}}">{{$rs.name}}</option>
+{{/foreach}}
+{{else}}
+<option value="">此日期已约满</option>
+{{/if}}

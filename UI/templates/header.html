@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" class="ui-mobile">
+<head>
+    <meta charset="utf-8">
+    <title>港医汇首页</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <link rel="shortcut icon" href="{{$rootpath}}/img/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="114x114" href="{{$rootpath}}/img/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon" sizes="72x72" href="{{$rootpath}}/img/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon" href="{{$rootpath}}/img/apple-touch-icon-57x57.png" />
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" media="screen" href="{{$rootpath}}/css/bootstrap.css">
+    <link rel="stylesheet" media="screen" href="{{$rootpath}}/css/bootstrap-theme.css">
+
+    <!--Jqery Mobile-->
+    <link rel="stylesheet" href="{{$rootpath}}/css/jquery.mobile-1.4.5.css" />
+    <link rel="stylesheet" href="{{$rootpath}}/themes/css/common.css" />
+
+    <!--js-->
+    <script type="text/javascript" src="{{$rootpath}}/js/jquery-2.0.3.min.js"></script>
+    <script type="text/javascript" src="{{$rootpath}}/js/jquery.mobile-1.4.5.min.js"></script>
+    <script type="text/javascript" src="{{$rootpath}}/js/bootstrap.min.js"></script>
+
+    <style>
+
+        @font-face {
+            font-family: Open Sans;
+            src: url({{$rootpath}}/fonts/SourceHanSansCN-ExtraLight.otf);
+        }
+        html,body{
+            font-family:Open Sans;
+        }
+
+
+        .bsmall {
+            font-size: 80%;
+            font-weight: lighter;
+        }
+        .xsmall {
+            font-size: 65%;
+            font-weight: lighter;
+        }
+        .xxsmall {
+            font-size: 45%;
+            font-weight: lighter;
+        }
+        .bluefont{
+            color:#42A4D3;
+        }
+        .yellowfont{
+            color:#ED7945;
+        }
+        .grayfont{
+            color:#8D8D8D;
+        }
+        .lighter{
+            font-weight:lighter;
+        }
+        .littelO{
+            margin:3px;
+            float:left;
+            background-color:#8D8D8D;
+             width:3px; height:3px;
+    border: 3px solid #8D8D8D;
+    -moz-border-radius: 15px;      /* Gecko browsers */
+    -webkit-border-radius: 15px;   /* Webkit browsers */
+    -ms-border-radius: 15px;   /* Webkit browsers */
+    border-radius:15px;            /* W3C syntax */
+        }
+        .littelO.active{
+            background-color:#42A4D3;
+            border-color:#42A4D3;
+        }
+
+input:-moz-placeholder,
+textarea:-moz-placeholder {
+    color: #999999;
+}
+
+input:-ms-input-placeholder,
+textarea:-ms-input-placeholder {
+    color: #999999;
+}
+
+input::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder {
+    color: #999999;
+}
+        .ODdivImg{
+            background-color:#8D8D8D;
+             width:100px; height:100px;
+    border: 0px solid #cccccc;
+    -moz-border-radius: 50px;      /* Gecko browsers */
+    -webkit-border-radius: 50px;   /* Webkit browsers */
+    -ms-border-radius: 50px;   /* Webkit browsers */
+    border-radius:50px;            /* W3C syntax */
+        }
+
+        
+    </style>
+</head>
+<body >
+    <div data-role="page">

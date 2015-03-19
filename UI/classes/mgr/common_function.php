@@ -88,7 +88,27 @@ function ResetNameWithLang($arr,$lang){
 	return $arr;
 
 }
+function getSimpleGuid(){
+	$size=4;
+	$length=4;
 
+	$code="";
+
+	$maxnumber=1;
+	for($i=0;$i<$length;$i++){
+		$maxnumber=$maxnumber*10;
+	}
+
+	for($i=0;$i<$size;$i++){
+		 $tmp=sprintf("%0".$length."s",rand(0,$maxnumber));
+		 if($code!=""){
+		 $code.="-";
+		 }
+		 $code.=$tmp;
+	}
+	return $code;
+
+}
  function guid($namespace = '') {     
     static $guid = '';
     $uid = uniqid("", true);
@@ -128,6 +148,7 @@ Global $SysLangCode;
 		return $ex;
 }
 
+
 function getListIdStr($arr,$key){
 	$list="0";
 		foreach ($arr as $value){
@@ -136,4 +157,23 @@ function getListIdStr($arr,$key){
 	return $list;
 }
 
+function encodeLongText($str){
+	$arr=explode("\n",$str);
+	$ret="";
+	foreach ($arr as $value){
+			$ret.="<p> $value </p>";
+	}
+
+	return $ret;
+}
+
+function encodeRowText($str){
+	$arr=explode("\n",$str);
+	$ret="";
+	foreach ($arr as $value){
+			$ret.="$value<br />";
+	}
+
+	return $ret;
+}
 ?>

@@ -14,5 +14,13 @@
       <ntbname>r_vaccine_list</ntbname>
       <condition>r_vaccine_list.status='A'  </condition>
     </field>
+    <field>
+      <name>说明</name>
+      <key>remarks</key>
+      <type>longtext</type>
+      <notnull>1</notnull>
+      <displayinlist>1</displayinlist>
+      <search>1</search>
+    </field>
   </fields>
 </root>

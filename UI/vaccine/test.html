@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <title>港医汇首页</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <link rel="shortcut icon" href="/MedicalPlatform/UI/img/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="114x114" href="/MedicalPlatform/UI/img/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon" sizes="72x72" href="/MedicalPlatform/UI/img/apple-touch-icon-72x72.png" />
+
+    <link rel="apple-touch-icon" href="/MedicalPlatform/UI/img/apple-touch-icon-57x57.png" />
+    <link rel="stylesheet" href="/MedicalPlatform/UI/themes/mobile/css/jquery.mobile-1.4.5.css" />
+    <link href="/MedicalPlatform/UI/themes/mobile/css/slides.css" rel="stylesheet" />
+
+    <link href="/MedicalPlatform/UI/themes/mobile/css/main.css" rel="stylesheet" />
+    <script src="/MedicalPlatform/UI/js/jquery-2.0.3.min.js"></script>
+    <script src="/MedicalPlatform/UI/themes/mobile/js/jquery.mobile-1.4.5.js"></script>
+
+    <script src="/MedicalPlatform/UI/themes/mobile/js/jquery.slides.js"></script>
+    <script src="/MedicalPlatform/UI/themes/mobile/js/common.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            $("#home-slides").slidesjs({
+                navigation: false,
+                //play: {
+                //    interval: 5000,
+                //    auto: true
+                //},
+                //effect: {
+                //    slide: {
+                //        speed: 500
+                //    },
+                //    fade: {
+                //        speed: 300,
+                //        crossfade: true
+                //    }
+                //}
+            });
+
+            //setVaccineRecommendHeight("vaccineRecommend_1", "right_1");
+            //setVaccineRecommendHeight("vaccineRecommend_1", "left_1");
+            //setVaccineRecommendHeight("vaccineRecommend_2", "right_2");
+            //setVaccineRecommendHeight("vaccineRecommend_2", "left_2");
+        });
+    </script>
+
+
+</head>
+<body>
+    <div data-role="page">
+        <div id="header" data-role="header" data-position="fixed" data-tap-toggle="false" data-theme="a">
+            <h1>
+                <div>港医汇</div>
+            </h1>
+            <img src="/MedicalPlatform/UI/themes/mobile/img/icons/index_comment.png">
+        </div>
+        <div id="content" data-role="content">
+
+            <script src="/MedicalPlatform/UI/plugin/raty/jquery.raty.js"></script>
+
+            <div id="child_narvigation" style="margin-top: 10px;">
+                <div id="child_nar vaccineNar">
+                    <div class="childNar vaccineChild" style="width: 45%; ">
+                        <a href="#" class="menuDisplay" menuid="districtMenu">
+                            <div class="childNarText">全区</div>
+                        </a>
+                    </div>
+                    <!--<div class="childNar vaccineChild" style="width: 30%; padding: 1%;">
+                        <a href="#" onclick="clickMenu('manVaccineMenu',this)">
+                            <div class="childNarText">筛选</div>
+                        </a>
+                    </div>-->
+                    <div class="childNar vaccineChild" style="width: 45%; ">
+                        <a href="#" class="menuDisplay">
+                            <div class="childNarText">综合排序</div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div id="cover" class="hide" style="background: gray; width: 100%; height: 100%; z-index: 9998; position: absolute; opacity: 0.5;"></div>
+
+            <div id="menuPanel" class="vaccineList vaccineMenus hide" style="background: white; z-index: 9999;">
+                <div id="menu" style="width: 100%; float: left;">
+                    <div id="districtMenu" class="hide" style="width: 50%; float: left; background: #F0F0F0; height: 250px; OVERFLOW-X: hidden;">
+                        <div onclick="openSubMenu('hotdistrictlist', 'districtMenu', this);" style="float: left; width: 100%;" ref_id="hotdistrictlist">
+                            <div>
+                                <span class="menuMainText">热门商区</span>
+                            </div>
+                        </div>
+                        <div onclick="openSubMenu('subwaylist', 'districtMenu', this);" style="float: left; width: 100%;" ref_id="subwaylist">
+                            <div>
+                                <span class="menuMainText">地铁沿线</span>
+                            </div>
+                        </div>
+                        <div onclick="openSubMenu('district_1', 'districtMenu', this);" style="float: left; width: 100%;" ref_id="district_1">
+                            <div>
+                                <span class="menuMainText">香港岛</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="womanVaccineMenu" class="hide" style="width: 100%; float: left; background: #F0F0F0; height: 250px; OVERFLOW-X: hidden;">
+                        <div style="">
+                            <span class="menuMainText">智能排序</span>
+                        </div>
+                        <div>
+                            <span class="menuMainText">价格优先</span>
+                        </div>
+                        <div>
+                            <span class="menuMainText">评价最高</span>
+                        </div>
+                    </div>
+                    <div id="hotdistrictlist" style="width: 50%; float: left; background: white;height: 250px; OVERFLOW-X: hidden;">
+                        <a class="menuMainText menuSubText" href="#">全部商区</a>
+                        <a class="menuMainText menuSubText" href="#">铜锣湾-中环-金钟</a>
+                    </div>
+
+                    <div id="subwaylist" style="width: 50%; float: left; background: white;height: 250px; OVERFLOW-X: hidden;">
+                        <a class="menuMainText menuSubText" href="#" onclick="openNextMenu(this)">东铁线</a>
+                        <div style="margin-left: 10px;display: none">
+                            <a class="menuMainText menuSubText" href="#" onclick="setMenuValue(this)">东铁线沿线</a>
+                            <a class="menuMainText menuSubText" href="#" onclick="setMenuValue(this)">大围</a>
+                        </div>
+                        <a class="menuMainText menuSubText" href="#" onclick="openNextMenu(this)">机场快线</a>
+                        <div style="margin-left: 10px;display: none">
+                            <a class="menuMainText menuSubText" href="#" onclick="setMenuValue(this)">机场快线沿线</a>
+                            <a class="menuMainText menuSubText" href="#" onclick="setMenuValue(this)">机场</a>
+                        </div>
+                    </div>
+                    <div id="district_1" style="width: 50%; float: left; background: white;height: 250px; OVERFLOW-X: hidden;">
+                        <a class="menuMainText menuSubText" href="#">香港岛全区</a>
+                        <a class="menuMainText menuSubText" href="#">数码港</a>
+                    </div>
+                </div>
+
+            </div>
+
+            <script type="text/javascript">
+                $(function () {
+                    $('.divraty').each(function () {
+                        var score = $(this).attr("score");
+                        $(this).raty({ readOnly: true, score: score });
+                    });
+                });
+
+                $(document).ready(function () {
+
+                    $(".menuDisplay").click(function () {
+                        var menuid = $(this).attr("menuid");
+                        $("#menuPanel").removeClass("hide");
+                    });
+
+                });
+
+
+            </script>
+
+
+        </div>
+
+        <div id="footer" data-role="footer" data-position="fixed" data-tap-toggle="false" data-theme="a">
+            <div data-role="navbar">
+                <ul>
+                    <li>
+                        <a href="#" data-icon="home">首页</a>
+                    </li>
+                    <li><a href="/MedicalPlatform/UI/vaccine/" data-icon="heart">疫苗</a></li>
+                    <li><a href="#" data-icon="star">咨询</a></li>
+                    <li><a href="#" data-icon="user">会员</a></li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html> 

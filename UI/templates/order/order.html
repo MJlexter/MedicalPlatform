@@ -1,0 +1,364 @@
+{{include  file="$smarty_root/header.html" }}
+
+<link rel="stylesheet" href="{{$rootpath}}/css/jquery-ui.css">
+<script src="{{$rootpath}}/js/jquery-ui.js"></script>
+
+<div role="main" class="ui-content" style="padding:0;" >
+    <div class="col-xs-12 text-center" style="background-color:#DBDBDC">
+        <h4 class="yellowfont snapshot">
+            <span><strong>参考价：{{if $haveorder=="1"}}{{$orderinfo.price}}{{else}}{{$info.web_price}}{{/if}}</strong></span>
+            <span>&nbsp;|&nbsp;</span>
+            <span class="bsmall">{{$info.vaccine_name}}</span>
+        </h4>
+    </div>    
+    <div class="col-xs-12" style="padding:15px;">
+        <div class="col-xs-4">
+            <img class="img-responsive" src="{{$uploadpath}}/vaccine/{{$info.vaccine_image}}" />
+        </div>
+        <div class="col-xs-8  snapshot">
+            <div>{{$info.vaccine_name}}</div>
+            <div class="xsmall grayfont" style="padding-top:6px;">[{{$info.vaccine_effect}}]</div>
+            <div class="xsmall grayfont" style="padding-top:6px;">{{$info.vaccine_used_group}}</div>
+        </div>
+    </div>  
+    <hr style="margin-bottom:0px;" />
+    <div class="col-xs-12" style="padding:15px;">
+        <div class="col-xs-4">
+            <img class="img-responsive" src="{{$uploadpath}}/doctor_photo/{{$info.doctor_photo}}">
+        </div>
+        <div class="col-xs-8  snapshot">
+            <div class="col-xs-12" style="padding-left:0px;">
+                <div class="col-xs-6" style="padding-left:0px;">{{$info.doctor_name}}</div>
+                <div class="col-xs-6 grayfont lighter" style="font-size:80%;">{{if $info.doctor_is_general=='Y'}}全科{{else}}{{$info.doctor_specialist}}{{/if}}</div>
+            </div>
+            <div class="bsmall grayfont" style="padding-top:6px;">{{$info.doctor_pro_title}}</div>
+        </div>
+    </div>
+    <hr style="margin-bottom:0px;" />
+    
+    <div class="col-xs-12" style="padding-top:5px;padding-bottom:5px; padding-left:15px;padding-right:15px;">
+
+        <div class="col-xs-12" >
+            <div class="col-xs-3" style="padding:0px;">
+                <a data-role="button" style="padding:5px;background-color: #42A4D3;color:snow;font-size:14px;font-weight:lighter;">选择诊所</a>
+            </div>
+            <div class="col-xs-8" >
+                <input type="hidden" id="office_id" value="0" />
+                <input type="hidden" id="office_address" value="" />
+                <input type="text" maxlength="20" id="office_name" readonly="readonly" value="" style="border:1px solid #42A4D3;min-height:0px;height:27px;padding:0px;text-align:center;" placeholder="" />
+            </div>
+            <script>
+                var office_list=Array();
+                var i=0;
+                {{foreach from=$info.office_list item=rs}}
+                var office_{{$rs.id}}={
+                "office_id":"{{$rs.id}}",
+                "office_name":"{{$rs.name}}",
+                "office_address":"{{$rs.address}}"};
+                office_list[i++]=office_{{$rs.id}};
+                {{/foreach}}
+                $(document).ready(function () {
+                    //alert(office_list[0].office_name);
+                    {{if $haveorder=="1"}}
+                    $("#office_name").val("{{$orderinfo.office_name}}");
+                    {{else}}
+                    $("#office_id").val(office_list[0].office_id);
+                    $("#office_address").val(office_list[0].office_name);
+                    $("#office_name").val(office_list[0].office_address);
+                    {{/if}}
+                });
+            </script>
+        </div>
+        <div class="col-xs-12" >
+            <div class="col-xs-3" style="padding:0px;">
+                <a data-role="button" style="padding:5px;background-color: #42A4D3;color:snow;font-size:14px;font-weight:lighter;">预约日期</a>
+            </div>
+            <div class="col-xs-8">
+                <input type="text" maxlength="20" readonly="readonly" id="order_date" value="{{if $haveorder=="1"}}{{$orderinfo.order_date}}{{else}}请点击选择{{/if}}" style="border:1px solid #42A4D3;min-height:0px;height:27px;padding:0px;text-align:center;" placeholder="点击选择"  />
+            </div>
+            <div class="col-xs-12 text-left" style="padding-left:0px;">
+                <div id="datepicker"></div>
+            </div>
+            <script>
+                    dateselect=null;
+            $(function() {
+                function CheckOepnHourDay(date){
+        var day = date.getDay()
+        var office_id=$("#office_id").val();
+        {{foreach from=$info.office_list item=rs }}
+        if(office_id=={{$rs.office_id}}){
+            {{if $rs.meet_day1!=""}}
+            if(day==1){
+                return [true,""];
+            }
+            {{/if}}
+
+            {{if $rs.meet_day2!=""}}
+            if(day==2){
+                return [true,""];
+            }
+            {{/if}}
+
+            {{if $rs.meet_day3!=""}}
+            if(day==3){
+                return [true,""];
+            }
+            {{/if}}
+
+                        {{if $rs.meet_day4!=""}}
+                        if(day==4){
+                            return [true,""];
+                        }
+                        {{/if}}
+                            {{if $rs.meet_day5!=""}}
+                            if(day==5){
+                                return [true,""];
+                            }
+                            {{/if}}
+                                {{if $rs.meet_day6!=""}}
+                                if(day==6){
+                                    return [true,""];
+                                }
+                                {{/if}}
+                                    {{if $rs.meet_day0!=""}}
+                                    if(day==0){
+                                        return [true,""];
+                                    }
+                                    {{/if}}
+        }
+                                        {{/foreach}}
+                                            return [false,""];
+                                        }
+
+     function initdrtime(dateText, inst) { 
+         var doctor_id={{$doctor_id}};
+         var office_id=$("#office_id").val();
+         $("#order_date").val(dateText);
+         dateselect.hide("slow");
+         var json={"doctor_id":doctor_id,"office_id":office_id,"order_date":dateText};
+         
+         $("#order_time").load("{{$rootpath}}/order/gettime.php",json,function(data){
+             $("#order_time").val($("#order_time:first").val());
+             $("#order_time").selectmenu('refresh');
+             refreshOrderTimeUI();
+             //$("#order_time-button .ui-selectmenu-text").text($("#order_time option:first").text());
+
+         });
+     } 
+     {{if $haveorder=="0"}}   
+                //dateselect.hide("slow");
+     $("#order_date").click(function(){
+         if(dateselect==null){
+             dateselect=$("#datepicker").datepicker({
+                 beforeShowDay: CheckOepnHourDay,
+                 minDate: +1,
+                 maxDate: "+1M",
+                 dateFormat:"yy-mm-dd",
+                 onSelect: initdrtime,
+             });
+             dateselect.hide();
+         }
+         dateselect.show("slow");
+
+         var scrollTop=$("#datepicker").offset().top;
+         $('html,body').animate({scrollTop: scrollTop}, 800);
+
+     });
+{{/if}}
+            });
+            </script>
+        </div>
+        <div class="col-xs-12">
+            <div class="col-xs-3" style="padding:0px;">
+                <a data-role="button"style="padding:5px;background-color: #42A4D3;color:snow;font-size:14px;font-weight:lighter;">预约时间</a>
+            </div>
+            <div class="col-xs-8">
+                <select id="order_time">
+                    {{if $haveorder=="0"}}   
+                    <option value="" selected="selected">请点击选择</option>
+                    {{else}}
+                    <option value="" selected="selected">{{$orderinfo.order_time}}</option>
+                    {{/if}}
+                </select>
+            </div>
+            <script>
+                function refreshOrderTimeUI(){
+                    var order_date_width=$("#order_date").width();
+                    if(order_date_width=="0"){
+                        order_date_width=200;
+                    }
+                    $("#order_time-button").css("width",order_date_width+2);
+                    $("#order_time-button").css("margin-top","6px");
+                    $("#order_time-button").css("border-color","#42A4D3");
+                    $("#order_time-button .ui-selectmenu-text").css("padding","2px");
+                    $("#order_time-button .ui-selectmenu-text").css("text-align","center");
+                    $("#order_time-button .ui-selectmenu-text").css("color","#333");
+                    $("#order_time-button .ui-selectmenu-text").css("font-weight","normal");
+                    $("#order_time-button .ui-selectmenu-text").css("font-size","16px");    
+            }
+            $(document).ready(function(){
+                refreshOrderTimeUI();
+            });
+            </script>
+        </div>
+    </div>
+
+    <div class="col-xs-12 " style="background-color:#DBDBDC">
+        <div class="col-xs-12 " ><h5 class="bsmall grayfont">个人信息</h5></div>
+    </div>    
+    <div class="col-xs-12 bsmall " style="padding-top:10px;">
+        <div class="col-xs-4 grayfont">手机号码</div>
+        <div class="col-xs-8 " style="padding-left:0px;">
+            <input id="clientmobile" data-role='none' type="tel" maxlength="11" style="border:0px;background-color:#F9F9F9" value="{{if $haveorder=="1"}}{{$orderinfo.clientmobile}}{{else}}{{$member.mobile}}{{/if}}" />
+        </div>
+    </div>
+    <hr style="margin-bottom:0px;" />
+    <div class="col-xs-12 bsmall " style="padding-top:10px;">
+        <div class="col-xs-4 grayfont">真实姓名</div>
+        <div class="col-xs-8 " style="padding-left:0px;"><input id="clientname" data-role='none' style="border:0px;background-color:#F9F9F9" value="{{if $haveorder=="1"}}{{$orderinfo.clientname}}{{else}}{{$member.name}}{{/if}}" /></div>
+    </div> 
+    <hr style="margin-bottom:0px;" />
+
+    
+    <div class="col-xs-12" style="padding:15px;">
+        <div class="col-xs-6 xsmall text-center bluefont" >香港诊所实地支付</div>
+        <div class="col-xs-6 xsmall text-center bluefont">具体价格以当日汇率结算</div>
+    </div>
+
+
+    <div class="col-xs-12" style="padding-bottom:30px;">
+        <div class="col-xs-12">
+            <a href="#" id="btnComplete"  data-role="button" style="background-color:#42A4D3;color:snow; font-weight:lighter;">确认预约</a>
+        </div>
+    </div>
+    <script>
+    {{if $haveorder=="0"}}
+    booking_success=false;
+    $(document).ready(function(){
+        var bodywidth=$("body").width();
+        $("#orderCompletePopup").css("width",bodywidth*0.8);
+        $("#btnComplete").click(function(){
+            if(booking_success){
+                $("#orderCompletePopup").popup("open");
+                return;
+            }
+            var clientname=$("#clientname").val();
+            if($.trim(clientname)==""){
+                PopupTips("请输入您的真实姓名。");
+                return;
+            }
+            var clientmobile=$("#clientmobile").val();
+            if($.trim(clientmobile)==""){
+                PopupTips("请输入您的手机号码。");
+                return;
+            }
+            var office_id=$("#office_id").val();
+            if($.trim(office_id)==""){
+                PopupTips("请选择您将前往的诊所。");
+                return;
+            }
+            var office_id=$("#office_id").val();
+            if($.trim(office_id)==""){
+                PopupTips("请选择您将前往的诊所。");
+                return;
+            }
+            var order_date=$("#order_date").val();
+            if($.trim(order_date)=="请点击选择"){
+                PopupTips("请选择您的预约日期。");
+                return;
+            }
+            var order_time=$("#order_time").val();
+            if($.trim(order_time)==""){
+                PopupTips("请选择您的预约时段。");
+                return;
+            }
+            
+            var snapshot=$("#order_detail").text();
+            
+            $("#btnComplete").addClass("ui-state-disabled");
+            var json={
+                "name":clientname,
+                "mobile":clientmobile,
+                "order_date":order_date,
+                "order_time":order_time,
+                "vaccine_id":{{$vaccine_id}},
+                "doctor_id":{{$doctor_id}},
+                "office_id":office_id,
+                "price":{{$info.web_price}},
+                "snapshot":""
+            }
+
+            $.post("{{$rootpath}}/order/quickvcorder.php",json,function(data){
+                
+
+                if(data.substring(0,7)=="SUCCESS"){
+                    var retdata=data.substring(7,data.length);
+                    var retarr=retdata.split(",");
+                    var guid=retarr[1];
+                    $("#guidcode").text(guid);
+                    var qrcodesrc=retarr[2];
+                    $("#imgqrcode").attr("src",qrcodesrc);
+
+                    $("#btnComplete").text("查看预约");
+                    $("#orderCompletePopup").popup("open");
+
+                    $("#order_date").unbind( "click" );
+                    $("#order_time").attr("disabled","disabled");
+                    $("#order_time").selectmenu('refresh');
+                    refreshOrderTimeUI();
+
+                    
+                    $("#clientname").attr("disabled","disabled");
+                    $("#clientmobile").attr("disabled","disabled");
+
+                    booking_success=true;
+
+                }else if(data=="USED"){
+                    PopupTips("{{$SysLang.vaccine.orderdatetimeused}}");
+                }else if(data=="DUPLIC"){
+                    PopupTips("您已经预约该医生与该疫苗，请勿重复预约。");
+                }else if(data=="WITHOUTLOGIN"){
+                    PopupTips("{{$SysLang.member.pleasesignin}}");
+                }else{
+                    alert(data);
+                }
+                $("#btnComplete").removeClass("ui-state-disabled");
+            });
+        });
+    });
+    {{else}}
+    $(document).ready(function(){
+        $("#btnComplete").text("查看预约");
+        $("#btnComplete").click(function(){
+                $("#orderCompletePopup").popup("open");
+        });
+    });
+    {{/if}}
+    </script>
+</div>
+<div data-role="popup" id="orderCompletePopup" data-overlay-theme="a" data-theme="a" style="border:0px;">
+    <div data-role="header" data-theme="b" style="background-color:#009FE8;border:0px;">
+        <h1>预约成功</h1>
+    </div>
+    <div role="main" class="ui-content" style="">
+        <p class="ui-title">请您于预约的指定日期前往改诊所完成预约。</p>
+        <div class="row">
+            <center>
+                <img id="imgqrcode" width="150px" height="150px" src="{{$orderinfo.qrcode}}" />
+            </center>
+        </div>
+        <div class="row text-center" >
+            <h4  id="guidcode">{{$orderinfo.guid}}</h4>
+        </div>
+        <div class="row">
+            <div class="col-xs-6">
+                <a href="{{$rootpath}}/member/order_list.php" id="orderLock" data-role="button" style="background-color:#42A4D3;color:snow; font-weight:lighter;">查看订单</a>
+            </div>
+            <div class="col-xs-6">
+                <a href="{{$rootpath}}"  data-role="button" style="background-color:#42A4D3;color:snow; font-weight:lighter;">再逛逛</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+    {{include  file="$smarty_root/footer.html" }}

@@ -15,8 +15,9 @@
   $timelist=$orderMgr->getBookingDateSelectedTime($office_id,$doctor_id,$order_date);
 
   $smarty->assign("timelist",$timelist);
+  $smarty->assign("timelistcount",count($timelist));
   
-  $smarty->display(ROOT.'/templates/mobile/order/gettime.html');
+  $smarty->display(ROOT.'/templates/order/gettime.html');
   
 
 

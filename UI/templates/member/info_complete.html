@@ -1,0 +1,230 @@
+{{include  file="$smarty_root/header.html" }}
+
+<style>
+    input:-moz-placeholder,
+    textarea:-moz-placeholder {
+        text-align: center;
+        font-size: 20px;
+    }
+
+    input:-ms-input-placeholder,
+    textarea:-ms-input-placeholder {
+        text-align: center;
+        font-size: 20px;
+    }
+
+    input::-webkit-input-placeholder,
+    textarea::-webkit-input-placeholder {
+        text-align: center;
+        font-size: 20px;
+    }
+</style>
+<div role="main" class="ui-content" style="padding:0;">
+    <div id="st_1" style="height:100%;">
+        <div class="col-xs-12 text-center">
+            <br />
+            <img src="{{$rootpath}}/img/logowithname.png">
+        </div>
+        <div class="col-xs-12 text-center lighter" style="padding-top:15px;">
+            完善个人资料
+        </div>
+        <div class="col-xs-12 text-center xsmall" style="padding-top:15px;">
+            只对医生可见
+        </div>
+        <div class="col-xs-12 text-center lighter" style="padding-top:15px;">
+            <div class="col-xs-12">
+                <input id="clientname" data-role='none' style="text-align:center; font-size:20px; padding:10px; border-top-width:0px;border-left-width:0px;border-right-width:0px;background-color:#F9F9F9" value="{{$member.name}}" placeholder="我的真实姓名" />
+            </div>
+        </div>
+        <div class="col-xs-12 text-center" style="">
+            <img id="photo_d" class="upload_img img-responsive" src="{{if $info.photo==""}}{{$rootpath}}/themes/img/temp/member_1.png{{else}}{{$uploadpath}}/clientphoto/{{$info.photo}}{{/if}}" />
+            <input id="photo" data-role="none" name="photo" onchange="upload('photo','clientphoto')" type="file" style="width:1px;height:1px;" />
+            <input id="photo_v" type="hidden" value="{{$info.photo}}" />
+        </div>
+        <div class="col-xs-12 text-center lighter" style="padding-top:15px;">
+            <a href="#" id="st_1_next"  data-role="button" style="color:snow; background-color:#42A4D3;">继续</a>
+        </div> 
+        
+        <div class="col-xs-12 text-center lighter" style="padding-top:15px;">
+            <a href="#" id="st_1_skip" class="ui-btn ui-btn-inline ui-icon-delete xsmall grayfont" style="border:1px solid #abc;color:#ccc;">跳过</a>
+            <br /><br />
+        </div>
+    </div>
+    <div id="st_2" style="height:100%;">
+        <div class="col-xs-12 text-center" style="padding-top:30px;">
+            <img id="st_2_photo" class="ODdivImg" src="{{$uploadpath}}/clientphoto/test.jpg" />
+        </div>
+        <div class="col-xs-12 text-center lighter" style="padding-top:15px;">
+            Hi <span id="st_2_clientname">Sunny</span> !
+        </div>
+        <div class="col-xs-12 text-center" id="st_2_1" style="padding-top:15px;" >
+            <div class="col-xs-12 text-center" id="st_2_1" style="border:1px solid #cccccc;border-radius:10px;-moz-border-radius: 10px;-webkit-border-radius: 10px">
+                <div class="row" style="background-color:#CCE9F5;border-top-left-radius:10px;-moz-border-top-left-radius: 10px;-webkit-border-top-left-radius: 10px;border-top-right-radius:10px;-moz-border-top-right-radius: 10px;-webkit-border-top-right-radius: 10px;">
+                    <h5 class="bluefont"><b><span id="st_2_number">3</span>项基本资料</b></h5>
+                    <h6 class="grayfont">补充以下资料，让医生了解更多的您</h6>
+                </div>
+                <div id="bt_1" class="row grayfont" style="margin-top:20px;margin-bottom:20px; border-bottom-left-radius:10px;-moz-border-bottom-left-radius: 10px;-webkit-border-bottom-left-radius: 10px;border-bottom-right-radius:10px;-moz-border-bottom-right-radius: 10px;-webkit-border-bottom-right-radius: 10px;">
+                    <h5>性别</h5>
+                    <div class="row">
+                        <div class="col-xs-1"></div>
+                        <div class="col-xs-5 sex_c" id="male_click">
+                            <img class="img-responsive" src="{{$rootpath}}/themes/img/temp/member_male.png" />
+                            男性
+                        </div>
+                        <div class="col-xs-5 sex_c " id="female_click">
+                            <img class="img-responsive" src="{{$rootpath}}/themes/img/temp/member_female.png" />
+                            女性
+                        </div>
+                        <div class="col-xs-1"></div>
+                    </div>
+                    <script>
+                        $(document).ready(function () {
+
+                            $("#male_click").click(function () {
+
+                                $("#male_click img").attr("src","{{$rootpath}}/themes/img/temp/member_male_a.png");
+                                $("#female_click img").attr("src", "{{$rootpath}}/themes/img/temp/member_female.png");
+
+                                $("#male_click").addClass("bluefont");
+                                $("#female_click").removeClass("bluefont");
+
+                                updateField("is_male", "Y");
+
+                            });
+
+                            $("#female_click").click(function () {
+
+                                $("#male_click img").attr("src", "{{$rootpath}}/themes/img/temp/member_male.png");
+                                $("#female_click img").attr("src", "{{$rootpath}}/themes/img/temp/member_female_a.png");
+
+                                $("#male_click").removeClass("bluefont");
+                                $("#female_click").addClass("bluefont");
+                                updateField("is_male", "N");
+
+                            });
+                        });
+                    </script>
+                </div>
+                <div id="bt_2" class="row grayfont " style="margin-top:20px;margin-bottom:20px; border-bottom-left-radius:10px;-moz-border-bottom-left-radius: 10px;-webkit-border-bottom-left-radius: 10px;border-bottom-right-radius:10px;-moz-border-bottom-right-radius: 10px;-webkit-border-bottom-right-radius: 10px;">
+                    <h5>出生日期</h5>
+                    <div class="col-xs-12">
+                        <input id="birth" type="date" data-role='none' style="text-align:center; font-size:20px; padding:10px; border-top-width:0px;border-left-width:0px;border-right-width:0px;background-color:#F9F9F9" value="1970-1-1" placeholder="年-月-日" />
+                    </div>
+                </div>
+                <div id="bt_3" class="row grayfont " style="margin-top:20px;margin-bottom:20px; border-bottom-left-radius:10px;-moz-border-bottom-left-radius: 10px;-webkit-border-bottom-left-radius: 10px;border-bottom-right-radius:10px;-moz-border-bottom-right-radius: 10px;-webkit-border-bottom-right-radius: 10px;">
+                    <h5>居住地</h5>
+                    <div class="col-xs-12">
+                        <input id="location" type="text" data-role='none' style="text-align:center; font-size:20px; padding:10px; border-top-width:0px;border-left-width:0px;border-right-width:0px;background-color:#F9F9F9" value="深圳" placeholder="城市" />
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+
+        <div class="col-xs-12 text-center lighter" style="padding-top:15px;">
+            <div style="width:48px; margin-left:auto;margin-right:auto;">
+                <div id="st_1_d" class="ckc littelO active"></div>
+                <div id="st_2_d" class="ckc littelO"></div>
+                <div id="st_3_d" class="ckc littelO"></div>
+            </div>
+        </div>
+        <div class="col-xs-12 text-center lighter" style="padding-top:15px;">
+            <a href="#" id="st_2_back" class="ui-btn ui-btn-inline ui-icon-delete xsmall grayfont" style="border:1px solid #abc;color:#ccc;">返回</a>
+            <a href="#" id="st_2_skip" class="ui-btn ui-btn-inline ui-icon-delete xsmall grayfont" style="border:1px solid #abc;color:#ccc;">跳过</a>
+            <br /><br />
+            <input id="step" value="1" type="hidden" />
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#st_2").hide();
+        $("#bt_2").hide();
+        $("#bt_3").hide();
+        $("#st_1_next").click(function () {
+           
+            var name = $("#clientname").val();
+            var photo = $("#photo_v").val();
+
+            if ($.trim(name) == "") {
+                PopupTips("请输入您的真实姓名");
+                return;
+            }
+
+            updateField("name", name);
+            updateField("photo", photo);
+
+            $("#st_2_clientname").text(name);
+            $("#st_2_photo").attr("src","{{$uploadpath}}/clientphoto/"+ photo);
+
+            $("#st_1").hide("fade");
+            $("#st_2").show("fade");
+        });
+        $("#st_1_skip").click(function () {
+            updateField("is_completed", "1");
+            document.location.href = "{{$rootpath}}/member/";
+        });
+        $("#st_2_back").click(function () {
+            var step = $("#step").val();
+            if (step == "1") {
+                $("#st_2").hide("fade");
+                $("#st_1").show("fade");
+            } else if (step == "2") {
+                $("#bt_1").show("fade");
+                $("#bt_2").hide("fade");
+                $("#step").val("1");
+                $("#st_2_number").text("3");
+                $(".ckc").removeClass("active");
+                $("#st_1_d").addClass("active");
+            }  else if (step == "3"){
+                $("#bt_2").show("fade");
+                $("#bt_3").hide("fade");
+                $("#step").val("2");
+                $("#st_2_number").text("2");
+                $(".ckc").removeClass("active");
+                $("#st_2_d").addClass("active");
+            }
+        }); 
+        $("#st_2_skip").click(function () {
+            var step = $("#step").val();
+            if (step == "1") {
+                $("#bt_1").hide("fade");
+                $("#bt_2").show("fade");
+                $("#step").val("2");
+                $("#st_2_number").text("2");
+                $(".ckc").removeClass("active");
+                $("#st_2_d").addClass("active");
+            } else if (step == "2") {
+                $("#bt_3").show("fade");
+                $("#bt_2").hide("fade");
+                $("#step").val("3");
+                $("#st_2_number").text("1");
+                $(".ckc").removeClass("active");
+                $("#st_3_d").addClass("active");
+            } else if (step == "3") {
+                $("#st_1_skip").click();
+            }
+        });
+        $(".sex_c").click(function () {
+            $("#st_2_skip").click();
+        });
+        $("#birth").blur(function () {
+            var birth = $("#birth").val();
+            if (isDate(birth)) {
+                updateField("birth", birth);
+                $("#st_2_skip").click();
+            }
+        });
+        $("#location").blur(function () {
+            var location = $("#location").val();
+            if (location.length>1) {
+                updateField("location", location);
+                $("#st_2_skip").click();
+            }
+        });
+    });
+</script>
+{{include  file="$smarty_root/member/member_common.html" }}
+
+{{include  file="$smarty_root/footer.html" }}
